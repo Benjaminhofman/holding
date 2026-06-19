@@ -833,7 +833,7 @@ function setCard(id, val, rate, sub) {
 }
 
 // Init
-requestAnimationFrame(() => simulate());  // Live update
+window.addEventListener('load', simulate);  // Live update
 
 // Live update
 document.querySelectorAll('input, select').forEach(el => {

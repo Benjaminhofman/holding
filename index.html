@@ -283,12 +283,13 @@ function simulate(){
   var net_av_ir = brut*(1-cs_sal);
 
   // SCENARIO B — Dividendes
-  var s2, sub2, note2, tt2;
+  var s2, sub2, note2, tt2, beneB;
   if(forme==='SAS'){
     var div_brut = cible/(1-pfu);
     var B2=div_brut*1.4;
     for(var i=0;i<25;i++) B2=div_brut+calcIS(B2);
     s2=B2;
+    beneB=B2;
     sub2='Flat tax PFU 31,4 %';
     note2='Pas d\'économie IS (dividende non déductible)';
     tt2='<b>Calcul à l\'envers</b><br>'+
@@ -310,6 +311,7 @@ function simulate(){
     for(var i=0;i<25;i++) B2b=(dt-cotis)+calcIS(B2b-cotis)+cotis;
     var eco_is_s2=calcIS(B2b-cotis);
     s2=B2b-eco_is_s2;
+    beneB=B2b;
     sub2='TNS + PFU selon seuil 10%';
     note2='Économie IS sur cotisations TNS déductibles';
     tt2='<b>Dividendes SARL</b><br>'+
@@ -333,10 +335,10 @@ function simulate(){
   var net_h=dispo-frais;
   var s3=B3;
 
-  _c1=s1; _c2=s2; _c3=s3;
+  _c1=cout_emp; _c2=beneB; _c3=B3;
 
   // Cards
-  var mn=Math.min(s1,s2,s3), mx=Math.max(s1,s2,s3);
+  var mn=Math.min(cout_emp,beneB,B3), mx=Math.max(cout_emp,beneB,B3);
   function setCard(id,cout,sub,note){
     var a=document.getElementById('amt-'+id);
     var s=document.getElementById('sub-'+id);
@@ -351,8 +353,10 @@ function simulate(){
       else if(cout===mx) c.classList.add('worst');
     }
   }
-  setCard('s1',s1,forme==='SAS'?'Assimilé-salarié SAS':'Gérant TNS SARL','Économie IS = salaire déductible');
-  setCard('s2',s2,sub2,note2);
+  setCard('s1',cout_emp,forme==='SAS'?'Assimilé-salarié SAS':'Gérant TNS SARL','Économie IS = salaire déductible');
+  document.getElementById('detail-cout-s1').textContent='Coût brut : '+fmt(cout_emp);
+  document.getElementById('detail-eco-s1').textContent='Économie IS : − '+fmt(eco_is_s1);
+  setCard('s2',beneB,sub2,note2);
   setCard('s3',s3,'Régime mère-fille · IS','');
 
   // Tooltips

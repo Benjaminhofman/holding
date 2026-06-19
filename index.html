@@ -327,12 +327,11 @@ function simulate(){
   }
 
   // SCENARIO B — Dividendes
-  var s2, sub2, note2, tt2, beneB;
+  var sub2, note2, tt2, beneB;
   if(forme==='SAS'){
     var div_brut = cible/(1-pfu);
     var B2=div_brut*1.4;
     for(var i=0;i<25;i++) B2=div_brut+calcIS(B2);
-    s2=B2;
     beneB=B2;
     sub2='Flat tax PFU 31,4 %';
     note2='Pas d\'économie IS (dividende non déductible)';
@@ -352,15 +351,12 @@ function simulate(){
     }
     var dp2=Math.min(dt,seuil), dtn2=Math.max(0,dt-seuil);
     var cotis=dtn2*cs_tns_d;
-    var B2b=dt*1.4;
-    for(var i=0;i<25;i++) B2b=(dt-cotis)+calcIS(B2b-cotis)+cotis;
     var cotis2=dtn2*cs_tns_d;
     if(dtn2 <= 0){
       var div_brut2 = cible/(1-pfu);
       var B2b2 = div_brut2*1.4;
       for(var i=0;i<25;i++) B2b2 = div_brut2 + calcIS(B2b2);
       beneB = B2b2;
-      s2 = B2b2;
     } else {
       beneB=dt+calcIS(dt-cotis2);
     }

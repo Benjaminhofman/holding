@@ -335,7 +335,7 @@ function simulate(){
   var net_h=dispo-frais;
   var s3=B3;
 
-  _c1=cout_emp; _c2=beneB; _c3=B3;
+  _c1=s1; _c2=beneB; _c3=B3;
 
   // Cards
   var mn=Math.min(cout_emp,beneB,B3), mx=Math.max(cout_emp,beneB,B3);
@@ -353,7 +353,7 @@ function simulate(){
       else if(cout===mx) c.classList.add('worst');
     }
   }
-  setCard('s1',cout_emp,forme==='SAS'?'Assimilé-salarié SAS':'Gérant TNS SARL','Économie IS = salaire déductible');
+  setCard('s1',s1,forme==='SAS'?'Assimilé-salarié SAS':'Gérant TNS SARL','Économie IS = salaire déductible');
   document.getElementById('detail-cout-s1').textContent='Coût brut : '+fmt(cout_emp);
   document.getElementById('detail-eco-s1').textContent='Économie IS : − '+fmt(eco_is_s1);
   setCard('s2',beneB,sub2,note2);

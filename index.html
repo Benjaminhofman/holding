@@ -336,7 +336,7 @@ function simulate(){
     var cotis=dtn2*cs_tns_d;
     var B2b=dt*1.4;
     for(var i=0;i<25;i++) B2b=(dt-cotis)+calcIS(B2b-cotis)+cotis;
-    var eco_is_s2=calcIS(B2b-cotis);
+    var eco_is_s2=calcIS(B2b)-calcIS(B2b-cotis);
     s2=B2b-eco_is_s2;
     beneB=B2b;
     sub2='TNS + PFU selon seuil 10%';

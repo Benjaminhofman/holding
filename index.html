@@ -13,7 +13,6 @@
     --surface2: #f0f2f8;
     --border: #dde1ee;
     --accent: #2563eb;
-    --accent2: #7c5cfc;
     --green: #16a34a;
     --amber: #d97706;
     --red: #dc2626;
@@ -34,13 +33,13 @@
     min-height: 100vh;
   }
 
-  /* HEADER */
   header {
     border-bottom: 1px solid var(--border);
-    padding: 28px 40px;
+    padding: 24px 40px;
     display: flex;
-    align-items: baseline;
-    gap: 20px;
+    align-items: center;
+    gap: 16px;
+    background: var(--surface);
   }
   .logo-tag {
     font-family: var(--mono);
@@ -48,15 +47,11 @@
     color: var(--accent);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    background: rgba(79,142,247,0.1);
+    background: rgba(37,99,235,0.08);
     padding: 3px 8px;
     border-radius: 3px;
   }
-  header h1 {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text);
-  }
+  header h1 { font-size: 17px; font-weight: 600; }
   .year-badge {
     font-family: var(--mono);
     font-size: 11px;
@@ -64,18 +59,17 @@
     margin-left: auto;
   }
 
-  /* LAYOUT */
   .container {
     display: grid;
-    grid-template-columns: 340px 1fr;
-    min-height: calc(100vh - 73px);
+    grid-template-columns: 320px 1fr;
+    min-height: calc(100vh - 65px);
   }
 
-  /* SIDEBAR INPUTS */
   aside {
     border-right: 1px solid var(--border);
-    padding: 32px 28px;
+    padding: 28px 24px;
     overflow-y: auto;
+    background: var(--surface);
   }
 
   .section-label {
@@ -84,26 +78,24 @@
     color: var(--muted);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-bottom: 16px;
-    padding-bottom: 8px;
+    margin-bottom: 14px;
+    padding-bottom: 6px;
     border-bottom: 1px solid var(--border);
   }
 
-  .input-group {
-    margin-bottom: 20px;
-  }
+  .input-group { margin-bottom: 16px; }
   .input-group label {
     display: block;
     font-size: 12px;
     color: var(--muted);
-    margin-bottom: 6px;
-    font-weight: 400;
+    margin-bottom: 5px;
   }
   .input-group .hint {
     font-size: 10px;
     color: var(--border);
     margin-top: 3px;
     font-family: var(--mono);
+    color: #9ca3af;
   }
 
   input[type="number"], select {
@@ -113,7 +105,7 @@
     color: var(--text);
     font-family: var(--mono);
     font-size: 13px;
-    padding: 9px 12px;
+    padding: 8px 12px;
     border-radius: 6px;
     outline: none;
     transition: border-color 0.2s;
@@ -122,7 +114,6 @@
   input[type="number"]::-webkit-outer-spin-button,
   input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
   input[type="number"]:focus, select:focus { border-color: var(--accent); }
-  select { cursor: pointer; }
 
   .toggle-group {
     display: flex;
@@ -148,65 +139,77 @@
     font-weight: 600;
   }
 
-  .sep { height: 1px; background: var(--border); margin: 24px 0; }
+  .sep { height: 1px; background: var(--border); margin: 20px 0; }
 
-  /* COLLAPSIBLE */
   .collapsible-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
-    margin-bottom: 0;
-    padding: 8px 0;
+    padding: 6px 0;
   }
-  .collapsible-header.open { margin-bottom: 16px; }
-  .chevron {
-    font-size: 10px;
-    color: var(--muted);
-    transition: transform 0.2s;
-  }
+  .chevron { font-size: 10px; color: var(--muted); transition: transform 0.2s; }
   .collapsible-header.open .chevron { transform: rotate(180deg); }
-  .collapsible-body { display: none; }
+  .collapsible-body { display: none; padding-top: 12px; }
   .collapsible-body.open { display: block; }
 
-  /* MAIN RESULTS */
-  main {
-    padding: 32px 36px;
-    overflow-y: auto;
-  }
+  main { padding: 28px 32px; overflow-y: auto; }
 
-  .results-header {
+  /* QUESTION CENTRALE */
+  .question-box {
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 28px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 28px;
+    gap: 20px;
   }
-  .results-header h2 {
-    font-size: 15px;
+  .question-box label {
+    font-size: 14px;
     font-weight: 600;
     color: var(--text);
+    white-space: nowrap;
   }
-  .taux-badge {
+  .question-box input {
+    width: 180px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--accent);
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 8px;
+    outline: none;
+    -moz-appearance: textfield;
+  }
+  .question-box input::-webkit-outer-spin-button,
+  .question-box input::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .question-box input:focus { border-color: var(--accent); }
+  .question-box .sub {
+    font-size: 11px;
     color: var(--muted);
+    margin-top: 2px;
+    font-family: var(--mono);
   }
 
-  /* SCENARIO CARDS */
+  /* CARDS COUT */
   .scenarios {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 32px;
+    gap: 14px;
+    margin-bottom: 24px;
   }
 
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 22px 20px;
+    padding: 20px;
     position: relative;
-    transition: border-color 0.2s;
+    cursor: help;
   }
   .card.best { border-color: var(--green); }
   .card.worst { border-color: var(--red); }
@@ -217,202 +220,50 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   .card.best .card-tag { color: var(--green); }
   .card.worst .card-tag { color: var(--red); }
 
-  .card-title {
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: var(--text);
-  }
-  .card-subtitle {
-    font-size: 10px;
-    color: var(--muted);
-    margin-bottom: 18px;
-  }
+  .card-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+  .card-subtitle { font-size: 10px; color: var(--muted); margin-bottom: 14px; }
 
   .card-amount {
     font-family: var(--mono);
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 500;
     color: var(--text);
-    letter-spacing: -0.02em;
   }
   .card.best .card-amount { color: var(--green); }
   .card.worst .card-amount { color: var(--red); }
 
-  .card-rate {
+  .card-label {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 10px;
     color: var(--muted);
     margin-top: 4px;
   }
 
-  /* BAR CHART */
-  .bar-section {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 24px;
-    margin-bottom: 24px;
-  }
-  .bar-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  .bar-row {
-    display: grid;
-    grid-template-columns: 140px 1fr 80px;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 14px;
-  }
-  .bar-name { font-size: 12px; color: var(--muted); }
-  .bar-track {
-    height: 8px;
-    background: var(--surface2);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .bar-fill {
-    height: 100%;
-    border-radius: 4px;
-    transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
-  }
-  .bar-fill.s1 { background: linear-gradient(90deg, var(--amber), #f7c948); }
-  .bar-fill.s2 { background: linear-gradient(90deg, var(--red), #e87070); }
-  .bar-fill.s3 { background: linear-gradient(90deg, var(--green), #60e0aa); }
-  .bar-pct {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--text);
-    text-align: right;
-  }
-
-  /* BREAKEVEN */
-  .breakeven-section {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 24px;
-    margin-bottom: 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-  .breakeven-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .breakeven-val {
-    font-family: var(--mono);
-    font-size: 22px;
-    font-weight: 500;
-    color: var(--accent);
-  }
-  .breakeven-sub {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-
-  /* WATERFALL */
-  .waterfall-section {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 24px;
-  }
-  .waterfall-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-
-  .wf-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 9px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 12px;
-  }
-  .wf-row:last-child { border-bottom: none; }
-  .wf-key { color: var(--muted); }
-  .wf-val {
-    font-family: var(--mono);
-    font-size: 12px;
-  }
-  .wf-val.neg { color: var(--red); }
-  .wf-val.pos { color: var(--green); }
-  .wf-val.neutral { color: var(--text); }
-  .wf-row.total .wf-key { color: var(--text); font-weight: 600; font-size: 13px; }
-  .wf-row.total .wf-val { font-size: 14px; color: var(--green); font-weight: 500; }
-
-  /* DECISION */
-  .decision-bar {
-    margin-top: 24px;
-    padding: 16px 20px;
-    border-radius: 8px;
-    font-size: 13px;
-    line-height: 1.5;
-    border: 1px solid;
-  }
-  .decision-bar.favorable {
-    background: rgba(62,207,142,0.08);
-    border-color: rgba(62,207,142,0.3);
-    color: var(--green);
-  }
-  .decision-bar.defavorable {
-    background: rgba(224,82,82,0.08);
-    border-color: rgba(224,82,82,0.3);
-    color: var(--red);
-  }
-  .decision-bar span { color: var(--text); }
-
-  footer {
-    text-align: center;
-    padding: 20px;
-    font-size: 10px;
-    color: var(--muted);
-    font-family: var(--mono);
-    border-top: 1px solid var(--border);
-  }
-
+  /* TOOLTIP */
   .tooltip-wrap { position: relative; }
   .tooltip-box {
     display: none;
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 10px);
     left: 50%;
     transform: translateX(-50%);
-    background: #1e2333;
-    color: #e8eaf0;
-    border: 1px solid #2a2f45;
+    background: #1e293b;
+    color: #e2e8f0;
+    border: 1px solid #334155;
     border-radius: 8px;
-    padding: 12px 16px;
+    padding: 14px 16px;
     font-family: var(--mono);
     font-size: 11px;
-    line-height: 1.8;
+    line-height: 2;
     white-space: pre;
-    z-index: 100;
-    min-width: 260px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    z-index: 200;
+    min-width: 280px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
     pointer-events: none;
   }
   .tooltip-box::before {
@@ -422,9 +273,195 @@
     left: 50%;
     transform: translateX(-50%);
     border: 6px solid transparent;
-    border-bottom-color: #2a2f45;
+    border-bottom-color: #334155;
   }
   .tooltip-wrap:hover .tooltip-box { display: block; }
+  .tt-pos { color: #4ade80; }
+  .tt-neg { color: #f87171; }
+  .tt-sep { color: #475569; }
+
+  /* BARRE */
+  .bar-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+  .bar-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 160px 1fr 90px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .bar-name { font-size: 12px; color: var(--muted); }
+  .bar-track { height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+  .bar-fill.s1 { background: linear-gradient(90deg, var(--amber), #fbbf24); }
+  .bar-fill.s2 { background: linear-gradient(90deg, #6366f1, #818cf8); }
+  .bar-fill.s3 { background: linear-gradient(90deg, var(--red), #f87171); }
+  .bar-fill.s4 { background: linear-gradient(90deg, var(--green), #4ade80); }
+  .bar-pct { font-family: var(--mono); font-size: 12px; text-align: right; color: var(--text); }
+
+  /* PROJECTION */
+  .projection-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+  .proj-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .proj-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .slider-wrap { display: flex; align-items: center; gap: 12px; }
+  .slider-wrap label { font-size: 12px; color: var(--muted); }
+  input[type="range"] {
+    width: 140px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  .slider-val {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--accent);
+    min-width: 50px;
+  }
+
+  .proj-table { width: 100%; border-collapse: collapse; }
+  .proj-table th {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-align: right;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .proj-table th:first-child { text-align: left; }
+  .proj-table td {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 10px 12px;
+    text-align: right;
+    border-bottom: 1px solid var(--surface2);
+  }
+  .proj-table td:first-child {
+    text-align: left;
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .proj-table tr.highlight { background: rgba(37,99,235,0.04); }
+  .proj-table tr.highlight td { font-weight: 600; }
+  .val-best { color: var(--green); }
+  .val-worst { color: var(--red); }
+
+  /* WATERFALL */
+  .waterfall-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+  .wf-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .wf-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--surface2);
+    font-size: 12px;
+  }
+  .wf-row:last-child { border-bottom: none; }
+  .wf-key { color: var(--muted); }
+  .wf-val { font-family: var(--mono); font-size: 12px; }
+  .wf-val.neg { color: var(--red); }
+  .wf-val.pos { color: var(--green); }
+  .wf-val.neutral { color: var(--text); }
+  .wf-row.total .wf-key { color: var(--text); font-weight: 600; font-size: 13px; }
+  .wf-row.total .wf-val { font-size: 14px; color: var(--green); font-weight: 600; }
+
+  /* PATRIMONIAL */
+  .patri-section {
+    background: rgba(37,99,235,0.04);
+    border: 1px solid rgba(37,99,235,0.2);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+  .patri-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .patri-list { list-style: none; }
+  .patri-list li {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(37,99,235,0.1);
+    display: flex;
+    gap: 10px;
+  }
+  .patri-list li:last-child { border-bottom: none; }
+  .patri-list li::before { content: '→'; color: var(--accent); font-family: var(--mono); flex-shrink: 0; }
+
+  /* DECISION */
+  .decision-bar {
+    padding: 14px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+    border: 1px solid;
+    margin-bottom: 20px;
+  }
+  .decision-bar.favorable { background: rgba(22,163,74,0.06); border-color: rgba(22,163,74,0.3); color: var(--green); }
+  .decision-bar.neutre { background: rgba(217,119,6,0.06); border-color: rgba(217,119,6,0.3); color: var(--amber); }
+  .decision-bar span { color: var(--text); font-weight: 600; }
+
+  footer {
+    text-align: center;
+    padding: 16px;
+    font-size: 10px;
+    color: var(--muted);
+    font-family: var(--mono);
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .note { font-size: 10px; color: #9ca3af; font-family: var(--mono); margin-top: 4px; font-style: italic; }
 </style>
 </head>
 <body>
@@ -432,21 +469,14 @@
 <header>
   <span class="logo-tag">Fiscal 2026</span>
   <h1>Holding vs Investissement Direct — Locatif</h1>
-  <span class="year-badge">Taux 2026 • PFU 31,4 %</span>
+  <span class="year-badge">Taux 2026 · PFU 31,4 %</span>
 </header>
 
 <div class="container">
 
   <!-- SIDEBAR -->
   <aside>
-
-    <div class="section-label">Exploitation</div>
-
-    <div class="input-group">
-      <label>Bénéfice avant IS (€)</label>
-      <input type="number" id="benefice" value="100000" step="5000" min="0">
-      <div class="hint">Résultat courant avant impôt</div>
-    </div>
+    <div class="section-label">Paramètres société</div>
 
     <div class="input-group">
       <label>Forme juridique</label>
@@ -474,136 +504,133 @@
     </div>
 
     <div class="sep"></div>
+    <div class="section-label">Taux fiscaux</div>
 
-    <!-- TAUX AVANCES -->
-    <div class="collapsible-header" onclick="toggleSection('taux')">
-      <span class="section-label" style="margin-bottom:0;border:none">Taux fiscaux</span>
-      <span class="chevron" id="chevron-taux">▼</span>
+    <div class="input-group">
+      <label>IS taux réduit (%) — jusqu'à 42 500 €</label>
+      <input type="number" id="is_reduit" value="15" step="1" min="0" max="100">
     </div>
-    <div class="collapsible-body" id="body-taux">
-
-      <div class="input-group">
-        <label>IS taux réduit (%) — jusqu'à 42 500 €</label>
-        <input type="number" id="is_reduit" value="15" step="1" min="0" max="100">
-      </div>
-      <div class="input-group">
-        <label>IS taux normal (%)</label>
-        <input type="number" id="is_normal" value="25" step="1" min="0" max="100">
-      </div>
-      <div class="input-group">
-        <label>Prélèvements sociaux PFU (%)</label>
-        <input type="number" id="ps_pfu" value="18.6" step="0.1" min="0" max="100">
-        <div class="hint">17,2 % avant 2026 → 18,6 % depuis 01/2026</div>
-      </div>
-      <div class="input-group">
-        <label>IR flat tax (%)</label>
-        <input type="number" id="ir_pfu" value="12.8" step="0.1" min="0" max="100">
-      </div>
-      <div class="input-group">
-        <label>Charges patronales (% du brut)</label>
-        <input type="number" id="cs_patronal" value="45" step="1" min="0" max="100">
-        <div class="hint">SAS (assimilé-salarié) ≈ 45 % patronal / SARL (TNS) ≈ 25 %</div>
-      </div>
-      <div class="input-group">
-        <label>Charges salariales (% du brut)</label>
-        <input type="number" id="cs_salarial" value="22" step="1" min="0" max="100">
-        <div class="hint">SAS ≈ 22 % salarial / SARL TNS : inclus dans le taux global</div>
-      </div>
-      <div class="input-group">
-        <label>Cotisations TNS sur dividendes (%)</label>
-        <input type="number" id="cs_tns" value="45" step="1" min="0" max="100">
-        <div class="hint">Fraction > 10 % capital social (SARL uniquement)</div>
-      </div>
-      <div class="input-group">
-        <label>Quote-part mère-fille (%)</label>
-        <input type="number" id="qp_mere_fille" value="5" step="1" min="0" max="100">
-        <div class="hint">Part réintégrée à l'IS dans la holding</div>
-      </div>
-
+    <div class="input-group">
+      <label>IS taux normal (%)</label>
+      <input type="number" id="is_normal" value="25" step="1" min="0" max="100">
+    </div>
+    <div class="input-group">
+      <label>Prélèvements sociaux PFU (%)</label>
+      <input type="number" id="ps_pfu" value="18.6" step="0.1">
+      <div class="hint">18,6 % depuis 01/2026</div>
+    </div>
+    <div class="input-group">
+      <label>IR flat tax (%)</label>
+      <input type="number" id="ir_pfu" value="12.8" step="0.1">
     </div>
 
     <div class="sep"></div>
+    <div class="section-label">Charges sociales</div>
 
-    <!-- COUTS HOLDING -->
-    <div class="collapsible-header" onclick="toggleSection('couts')">
-      <span class="section-label" style="margin-bottom:0;border:none">Coûts Holding + SCI</span>
-      <span class="chevron" id="chevron-couts">▼</span>
+    <div class="input-group">
+      <label>Charges patronales SAS (% du brut)</label>
+      <input type="number" id="cs_patronal" value="45" step="1">
+      <div class="hint">Coût employeur = brut × (1 + patronal)</div>
     </div>
-    <div class="collapsible-body" id="body-couts">
-
-      <div class="input-group">
-        <label>Frais création holding (€)</label>
-        <input type="number" id="cout_creation_holding" value="1500" step="100">
-      </div>
-      <div class="input-group">
-        <label>Frais création SCI (€)</label>
-        <input type="number" id="cout_creation_sci" value="2000" step="100">
-      </div>
-      <div class="input-group">
-        <label>Amortissement création (années)</label>
-        <input type="number" id="amort" value="5" step="1" min="1">
-      </div>
-      <div class="input-group">
-        <label>Comptabilité holding (€/an)</label>
-        <input type="number" id="cout_holding_an" value="2500" step="100">
-      </div>
-      <div class="input-group">
-        <label>Comptabilité SCI (€/an)</label>
-        <input type="number" id="cout_sci_an" value="800" step="100">
-      </div>
-
+    <div class="input-group">
+      <label>Charges salariales SAS (% du brut)</label>
+      <input type="number" id="cs_salarial" value="22" step="1">
+    </div>
+    <div class="input-group">
+      <label>Cotisations TNS SARL (% de la rémunération)</label>
+      <input type="number" id="cs_tns_rem" value="45" step="1">
+      <div class="hint">Déductibles IS — sur rémunération nette gérant</div>
+    </div>
+    <div class="input-group">
+      <label>Cotisations TNS SARL sur dividendes (%)</label>
+      <input type="number" id="cs_tns_div" value="45" step="1">
+      <div class="hint">Fraction > 10 % capital — déductibles IS</div>
     </div>
 
     <div class="sep"></div>
+    <div class="section-label">Coûts Holding + SCI</div>
 
-    <button onclick="simulate()" style="
-      width:100%; padding:12px; background: var(--accent);
-      border:none; border-radius:8px; color:#fff;
-      font-family:var(--sans); font-size:14px; font-weight:600;
-      cursor:pointer; transition: opacity 0.2s;
-    " onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">
-      Calculer →
-    </button>
+    <div class="input-group">
+      <label>Frais création holding (€)</label>
+      <input type="number" id="cout_creation_holding" value="1500" step="100">
+    </div>
+    <div class="input-group">
+      <label>Frais création SCI (€)</label>
+      <input type="number" id="cout_creation_sci" value="1500" step="100">
+    </div>
+    <div class="input-group">
+      <label>Amortissement création (années)</label>
+      <input type="number" id="amort" value="5" step="1" min="1">
+    </div>
+    <div class="input-group">
+      <label>Comptabilité holding (€/an)</label>
+      <input type="number" id="cout_holding_an" value="2000" step="100">
+    </div>
+    <div class="input-group">
+      <label>Comptabilité SCI (€/an)</label>
+      <input type="number" id="cout_sci_an" value="1000" step="100">
+    </div>
+    <div class="input-group">
+      <label>Quote-part mère-fille (%)</label>
+      <input type="number" id="qp" value="5" step="1">
+    </div>
 
   </aside>
 
   <!-- MAIN -->
   <main>
 
-    <div class="results-header">
-      <h2>Résultats comparatifs</h2>
-      <span class="taux-badge" id="recap-benfice">— </span>
+    <!-- QUESTION CENTRALE -->
+    <div class="question-box">
+      <div>
+        <label>Montant net à investir par an</label>
+        <div class="sub">Combien voulez-vous disposer pour investir ?</div>
+      </div>
+      <div>
+        <input type="number" id="cible" value="50000" step="5000" min="1">
+      </div>
+      <div style="font-size:12px; color:var(--muted); max-width:200px; line-height:1.5;">
+        Le simulateur calcule le coût pour la société selon chaque véhicule d'extraction.
+      </div>
     </div>
 
     <!-- CARDS -->
     <div class="scenarios">
       <div class="card tooltip-wrap" id="card-s1">
-        <div class="card-tag">Scénario A</div>
-        <div class="card-title">Salaire</div>
-        <div class="card-subtitle" id="sub-s1">Président assimilé-salarié</div>
+        <div class="card-tag" id="tag-s1">Scénario A</div>
+        <div class="card-title" id="title-s1">Salaire</div>
+        <div class="card-subtitle" id="sub-s1">—</div>
         <div class="card-amount" id="amt-s1">—</div>
-        <div class="card-rate" id="rate-s1">taux de rétention : —</div>
+        <div class="card-label">coût pour la société</div>
+        <div class="note" id="note-s1"></div>
         <div class="tooltip-box" id="tooltip-s1"></div>
       </div>
-      <div class="card" id="card-s2">
+      <div class="card tooltip-wrap" id="card-s2">
         <div class="card-tag">Scénario B</div>
         <div class="card-title">Dividendes directs</div>
-        <div class="card-subtitle" id="sub-s2">Flat tax / cotisations TNS</div>
+        <div class="card-subtitle" id="sub-s2">—</div>
         <div class="card-amount" id="amt-s2">—</div>
-        <div class="card-rate" id="rate-s2">taux de rétention : —</div>
+        <div class="card-label">coût pour la société</div>
+        <div class="note" id="note-s2"></div>
+        <div class="tooltip-box" id="tooltip-s2"></div>
       </div>
-      <div class="card" id="card-s3">
+      <div class="card tooltip-wrap" id="card-s3">
         <div class="card-tag">Scénario C</div>
         <div class="card-title">Holding + SCI</div>
-        <div class="card-subtitle" id="sub-s3">Régime mère-fille · IS</div>
+        <div class="card-subtitle">Régime mère-fille · IS</div>
         <div class="card-amount" id="amt-s3">—</div>
-        <div class="card-rate" id="rate-s3">taux de rétention : —</div>
+        <div class="card-label">coût pour la société</div>
+        <div class="note">Argent disponible dans la holding</div>
+        <div class="tooltip-box" id="tooltip-s3"></div>
       </div>
     </div>
 
-    <!-- BARRE -->
+    <!-- DECISION -->
+    <div id="decision-bar" class="decision-bar favorable"></div>
+
+    <!-- BARRE COUT -->
     <div class="bar-section">
-      <div class="bar-label">Taux de rétention du capital (cash disponible / bénéfice initial)</div>
+      <div class="bar-label">Coût pour la société par scénario (pour obtenir le même net)</div>
       <div class="bar-row">
         <div class="bar-name" id="bar-label-s1">Salaire</div>
         <div class="bar-track"><div class="bar-fill s1" id="bar-s1" style="width:0%"></div></div>
@@ -616,34 +643,44 @@
       </div>
       <div class="bar-row">
         <div class="bar-name">Holding + SCI</div>
-        <div class="bar-track"><div class="bar-fill s3" id="bar-s3" style="width:0%"></div></div>
+        <div class="bar-track"><div class="bar-fill s4" id="bar-s3" style="width:0%"></div></div>
         <div class="bar-pct" id="barpct-s3">—</div>
       </div>
     </div>
 
-    <!-- BREAKEVEN + GAIN -->
-    <div class="breakeven-section">
-      <div>
-        <div class="breakeven-label">Seuil de rentabilité du montage</div>
-        <div class="breakeven-val" id="seuil-val">—</div>
-        <div class="breakeven-sub" id="seuil-sub">bénéfice annuel minimum pour couvrir les frais</div>
+    <!-- PROJECTION -->
+    <div class="projection-section">
+      <div class="proj-header">
+        <div class="proj-title">Capital cumulé disponible pour investir</div>
+        <div class="slider-wrap">
+          <label>Horizon</label>
+          <input type="range" id="slider-ans" min="1" max="20" value="10" step="1" oninput="updateSlider()">
+          <span class="slider-val" id="slider-display">10 ans</span>
+        </div>
       </div>
-      <div>
-        <div class="breakeven-label">Gain annuel vs meilleur scénario direct</div>
-        <div class="breakeven-val" id="gain-val">—</div>
-        <div class="breakeven-sub" id="gain-sub">avantage net de la structure holding</div>
-      </div>
+      <table class="proj-table">
+        <thead>
+          <tr>
+            <th>Année</th>
+            <th id="th-s1">Salaire</th>
+            <th id="th-s2">Dividendes</th>
+            <th>Holding</th>
+            <th>Avantage holding</th>
+          </tr>
+        </thead>
+        <tbody id="proj-body"></tbody>
+      </table>
     </div>
 
     <!-- WATERFALL HOLDING -->
     <div class="waterfall-section">
-      <div class="waterfall-label">Décomposition Holding + SCI (flux pas à pas)</div>
+      <div class="wf-title">Décomposition Holding + SCI — flux pas à pas</div>
       <div class="wf-row">
-        <span class="wf-key">Bénéfice avant IS (exploitation)</span>
+        <span class="wf-key">Bénéfice nécessaire avant IS</span>
         <span class="wf-val neutral" id="wf-0">—</span>
       </div>
       <div class="wf-row">
-        <span class="wf-key">IS exploitation (taux réduit / normal)</span>
+        <span class="wf-key">IS exploitation</span>
         <span class="wf-val neg" id="wf-1">—</span>
       </div>
       <div class="wf-row">
@@ -651,11 +688,11 @@
         <span class="wf-val neutral" id="wf-2">—</span>
       </div>
       <div class="wf-row">
-        <span class="wf-key">IS holding (quote-part 5 % × taux IS)</span>
+        <span class="wf-key">IS holding (quote-part × taux IS)</span>
         <span class="wf-val neg" id="wf-3">—</span>
       </div>
       <div class="wf-row">
-        <span class="wf-key">Disponible holding avant frais</span>
+        <span class="wf-key">Disponible avant frais de structure</span>
         <span class="wf-val neutral" id="wf-4">—</span>
       </div>
       <div class="wf-row">
@@ -667,53 +704,60 @@
         <span class="wf-val neg" id="wf-6">—</span>
       </div>
       <div class="wf-row">
-        <span class="wf-key">Amortissement frais de création (annuel)</span>
+        <span class="wf-key">Amortissement frais de création</span>
         <span class="wf-val neg" id="wf-7">—</span>
       </div>
       <div class="wf-row total">
-        <span class="wf-key">Cash net disponible pour investir</span>
+        <span class="wf-key">Net disponible pour investir</span>
         <span class="wf-val pos" id="wf-8">—</span>
       </div>
     </div>
 
-    <div id="decision-bar" class="decision-bar favorable" style="display:none"></div>
+    <!-- PATRIMONIAL -->
+    <div class="patri-section">
+      <div class="patri-title">Avantages patrimoniaux non chiffrés</div>
+      <ul class="patri-list">
+        <li>Donation de la nue-propriété des parts de holding aux enfants — base taxable réduite selon l'âge du donateur (art. 669 CGI)</li>
+        <li>Capitalisation sans fiscalité personnelle immédiate — les loyers restent dans la holding et se réinvestissent intégralement</li>
+        <li>Effet boule de neige sur plusieurs décennies — l'avantage annuel se compose sans fuite fiscale</li>
+        <li>Centralisation des investissements — un seul bilan consolide l'ensemble du patrimoine immobilier</li>
+        <li>Protection du patrimoine professionnel — séparation entre actif d'exploitation et actif immobilier</li>
+        <li>Quasi-exonération des plus-values sur cession de titres de filiales — régime titres de participation (12 % réintégrés)</li>
+        <li>Transmission facilitée — les titres de holding se transmettent sans démembrement de l'immobilier</li>
+      </ul>
+    </div>
 
   </main>
-
 </div>
 
 <footer>Simulateur indicatif — Taux 2026 — Ne constitue pas un conseil fiscal personnalisé</footer>
 
 <script>
 let forme = 'SAS';
+let _s1_cout = 0, _s2_cout = 0, _s3_cout = 0;
+let _cible = 50000;
 
 function setForme(f) {
   forme = f;
   document.getElementById('btn-sas').classList.toggle('active', f === 'SAS');
   document.getElementById('btn-sarl').classList.toggle('active', f === 'SARL');
   document.getElementById('group-capital').style.display = f === 'SARL' ? 'block' : 'none';
-  document.getElementById('cs_patronal').value = f === 'SAS' ? 45 : 25;
-  document.getElementById('cs_salarial').value = f === 'SAS' ? 22 : 22;
   simulate();
-}
-
-function toggleSection(id) {
-  const body = document.getElementById('body-' + id);
-  const header = body.previousElementSibling;
-  const chevron = document.getElementById('chevron-' + id);
-  body.classList.toggle('open');
-  header.classList.toggle('open');
 }
 
 function g(id) { return parseFloat(document.getElementById(id).value) || 0; }
 
-function calcIS(resultat) {
+function calcIS(b) {
+  if (b <= 0) return 0;
   const seuil = 42500;
-  const tauxR = g('is_reduit') / 100;
-  const tauxN = g('is_normal') / 100;
-  if (resultat <= 0) return 0;
-  if (resultat <= seuil) return resultat * tauxR;
-  return seuil * tauxR + (resultat - seuil) * tauxN;
+  const r = g('is_reduit') / 100;
+  const n = g('is_normal') / 100;
+  return b <= seuil ? b * r : seuil * r + (b - seuil) * n;
+}
+
+function tauxISMoyen(b) {
+  if (b <= 0) return 0;
+  return calcIS(b) / b;
 }
 
 function fmt(n) {
@@ -721,170 +765,260 @@ function fmt(n) {
 }
 
 function simulate() {
-  const B = g('benefice');
-  const tmi = g('tmi') / 100 || parseFloat(document.getElementById('tmi').value);
-  const tmi_val = parseFloat(document.getElementById('tmi').value);
-  const ps = g('ps_pfu') / 100;
-  const ir_pfu = g('ir_pfu') / 100;
-  const cs_tns = g('cs_tns') / 100;
+  const cible = g('cible');
+  _cible = cible;
+  const tmi = parseFloat(document.getElementById('tmi').value);
+  const pfu = (g('ps_pfu') + g('ir_pfu')) / 100;
+  const cs_pat = g('cs_patronal') / 100;
+  const cs_sal = g('cs_salarial') / 100;
+  const cs_tns_rem = g('cs_tns_rem') / 100;
+  const cs_tns_div = g('cs_tns_div') / 100;
   const capital = g('capital');
-  const qp = g('qp_mere_fille') / 100;
+  const qp = g('qp') / 100;
+  const is_n = g('is_normal') / 100;
   const cout_h = g('cout_holding_an');
   const cout_s = g('cout_sci_an');
-  const creation_total = g('cout_creation_holding') + g('cout_creation_sci');
-  const amort_annuel = creation_total / Math.max(g('amort'), 1);
-
-  // Taux IS
-  const tauxN = g('is_normal') / 100;
-  const tauxR = g('is_reduit') / 100;
+  const amort = (g('cout_creation_holding') + g('cout_creation_sci')) / Math.max(g('amort'), 1);
+  const frais_fixes = cout_h + cout_s + amort;
 
   // --- SCENARIO A : SALAIRE ---
-  const cs_patronal = g('cs_patronal') / 100;
-  const cs_salarial = g('cs_salarial') / 100;
-  // Salaire : IS = 0 car charge déductible
-  const sal_brut = B / (1 + cs_patronal);
-  const sal_net_avant_ir = sal_brut * (1 - cs_salarial);
-  const s1_net = sal_net_avant_ir * (1 - tmi_val);
-  // Coût total SAS ≈ 67% du brut / SARL TNS ≈ 45% du net
+  // Net = Brut × (1-cs_sal) × (1-tmi)
+  // Brut = cible / (1-tmi) / (1-cs_sal)
+  // Coût employeur = Brut × (1+cs_pat)
+  // Économie IS = Coût_employeur × taux_IS_moyen(Coût_employeur)
+  // Coût net société = Coût_employeur - Économie_IS
+  const brut_s1 = cible / (1 - tmi) / (1 - cs_sal);
+  const cout_emp = brut_s1 * (1 + cs_pat);
+  const eco_is_s1 = calcIS(cout_emp);
+  const s1_cout = cout_emp - eco_is_s1;
+  const net_avant_ir_s1 = brut_s1 * (1 - cs_sal);
 
-  // --- SCENARIO B : DIVIDENDES DIRECTS ---
-  const is_expl = calcIS(B);
-  const dividende_brut = B - is_expl;
+  // --- SCENARIO B : DIVIDENDES ---
+  let s2_cout, tooltip2_lines, sub2, note2;
 
-  let s2_net;
   if (forme === 'SAS') {
-    // PFU = IR flat tax + PS
-    const pfu_total = ir_pfu + ps;
-    s2_net = dividende_brut * (1 - pfu_total);
+    // Net = Div_brut × (1-PFU)
+    // Div_brut = cible / (1-PFU)
+    // Bénéfice = Div_brut / (1 - taux_IS_moyen)
+    // Pas d'économie IS sur dividende
+    const div_brut = cible / (1 - pfu);
+    // IS sur bénéfice nécessaire (itération)
+    // Bénéfice = div_brut + IS(Bénéfice) → résolution
+    // IS = calcIS(B), B - IS = div_brut → B = div_brut + calcIS(B)
+    let B2 = div_brut * 1.35; // estimation initiale
+    for (let i = 0; i < 20; i++) {
+      B2 = div_brut + calcIS(B2);
+    }
+    s2_cout = B2;
+    sub2 = 'Flat tax PFU 31,4 %';
+    note2 = 'Pas d\'économie IS (dividende non déductible)';
+    tooltip2_lines = [
+      `Bénéfice nécessaire     ${fmt(B2)}`,
+      `IS exploitation         - ${fmt(calcIS(B2))}`,
+      `───────────────────────────────`,
+      `Dividende brut          ${fmt(div_brut)}`,
+      `PFU ${(pfu*100).toFixed(1)} %              - ${fmt(div_brut * pfu)}`,
+      `───────────────────────────────`,
+      `Net disponible          ${fmt(cible)}`,
+    ];
   } else {
-    // SARL : fraction <= 10% capital → PFU, fraction > 10% → cotisations TNS
+    // SARL : cotisations TNS sur fraction > 10% capital, déductibles IS
+    // Simplification : on calcule le bénéfice nécessaire par itération
     const seuil_tns = capital * 0.10;
-    const div_pfu = Math.min(dividende_brut, seuil_tns);
-    const div_tns = Math.max(0, dividende_brut - seuil_tns);
-    const pfu_total = ir_pfu + ps;
-    s2_net = div_pfu * (1 - pfu_total) + div_tns * (1 - cs_tns) * (1 - pfu_total);
+    // Net = div_pfu × (1-PFU) + div_tns_net × (1-PFU)
+    // div_tns_net = div_tns × (1-cs_tns_div)
+    // On cherche Div_total tel que le net = cible
+    // Itération sur Div_total
+    let div_total = cible / (1 - pfu) * 1.2;
+    for (let i = 0; i < 30; i++) {
+      const div_pfu_part = Math.min(div_total, seuil_tns);
+      const div_tns_part = Math.max(0, div_total - seuil_tns);
+      const net_calc = div_pfu_part * (1 - pfu) + div_tns_part * (1 - cs_tns_div) * (1 - pfu);
+      div_total = div_total * (cible / net_calc);
+    }
+    const div_pfu_part = Math.min(div_total, seuil_tns);
+    const div_tns_part = Math.max(0, div_total - seuil_tns);
+    const cotis_tns = div_tns_part * cs_tns_div;
+    // Économie IS sur cotisations TNS (déductibles)
+    let B2 = div_total * 1.35;
+    for (let i = 0; i < 20; i++) {
+      B2 = div_total + calcIS(B2 - cotis_tns);
+    }
+    const eco_is_s2 = calcIS(B2 - cotis_tns);
+    s2_cout = B2 - eco_is_s2;
+    sub2 = 'TNS + PFU selon seuil 10 %';
+    note2 = 'Économie IS sur cotisations TNS déductibles';
+    tooltip2_lines = [
+      `Dividende total brut    ${fmt(div_total)}`,
+      `dont PFU (≤ 10% cap.)   ${fmt(div_pfu_part)}`,
+      `dont TNS (> 10% cap.)   ${fmt(div_tns_part)}`,
+      `Cotis. TNS déductibles  - ${fmt(cotis_tns)}`,
+      `Économie IS             + ${fmt(eco_is_s2)}`,
+      `───────────────────────────────`,
+      `Coût net société        ${fmt(s2_cout)}`,
+      `Net disponible          ${fmt(cible)}`,
+    ];
   }
 
-  // --- SCENARIO C : HOLDING + SCI ---
-  // 1. IS sur exploitation
-  const is_expl_h = calcIS(B);
-  const div_vers_holding = B - is_expl_h;
-
-  // 2. Régime mère-fille : seule quote-part imposable
-  const base_is_holding = div_vers_holding * qp;
-  const is_holding = base_is_holding * tauxN; // taux normal dans la holding
-
-  // 3. Disponible avant frais
+  // --- SCENARIO C : HOLDING ---
+  // On veut net holding = cible
+  // Net holding = (Bénéfice - IS_expl) × (1 - qp×is_n) - frais_fixes = cible
+  // Bénéfice - IS(Bénéfice) = div_holding
+  // div_holding × (1-qp×is_n) - frais = cible
+  // div_holding = (cible + frais) / (1-qp×is_n)
+  const friction_mf = qp * is_n;
+  const div_holding_need = (cible + frais_fixes) / (1 - friction_mf);
+  // B - IS(B) = div_holding_need → itération
+  let B3 = div_holding_need * 1.35;
+  for (let i = 0; i < 20; i++) {
+    B3 = div_holding_need + calcIS(B3);
+  }
+  const is_expl3 = calcIS(B3);
+  const div_vers_holding = B3 - is_expl3;
+  const is_holding = div_vers_holding * qp * is_n;
   const dispo_avant_frais = div_vers_holding - is_holding;
+  const s3_cout = B3;
+  const net_holding = dispo_avant_frais - frais_fixes;
 
-  // 4. Déduction frais
-  const s3_net = dispo_avant_frais - cout_h - cout_s - amort_annuel;
+  _s1_cout = s1_cout;
+  _s2_cout = s2_cout;
+  _s3_cout = s3_cout;
 
-  // --- SEUIL DE RENTABILITE ---
-  // Point où Holding > max(S1, S2)
-  // Approximation linéaire : coûts fixes = cout_h + cout_s + amort_annuel
-  // Avantage marginal par € de bénéfice = taux_retention_holding - taux_retention_direct
-  const best_direct = Math.max(s1_net, s2_net);
-  const frais_fixes = cout_h + cout_s + amort_annuel;
+  // --- AFFICHAGE CARDS ---
+  const couts = [s1_cout, s2_cout, s3_cout];
+  const minC = Math.min(...couts), maxC = Math.max(...couts);
 
-  // Taux de rétention holding (hors frais fixes)
-  // Pour B = 1 : is1 = B * tauxR, div_h = B - tauxR, is_h = div_h * qp * tauxN
-  // dispo = div_h - is_h = B*(1-tauxR)*(1 - qp*tauxN)
-  const ret_holding_marginal = (1 - tauxR) * (1 - qp * tauxN);
-  const ret_direct = best_direct / B;
-  const diff_marginal = ret_holding_marginal - ret_direct;
-  const seuil_rentabilite = diff_marginal > 0 ? frais_fixes / diff_marginal : null;
-
-  const gain = s3_net - best_direct;
-
-  // --- AFFICHAGE ---
-  document.getElementById('recap-benfice').textContent = fmt(B) + ' de bénéfice';
-
-  const r1 = s1_net / B;
-  const r2 = s2_net / B;
-  const r3 = s3_net / B;
-
-  // Cards
-  setCard('s1', s1_net, r1, forme === 'SAS' ? 'Président assimilé-salarié SAS' : 'Gérant assimilé-salarié SARL');
-  const brut_s1 = B / (1 + cs_patronal);
-  const net_avant_ir_s1 = brut_s1 * (1 - cs_salarial);
-  document.getElementById('tooltip-s1').textContent = [
-    `Bénéfice avant IS       ${fmt(B)}`,
-    `IS                      0 € (salaire déductible)`,
-    `÷ (1 + ${(cs_patronal*100).toFixed(0)}% patronal)  Brut    ${fmt(brut_s1)}`,
-    `× (1 - ${(cs_salarial*100).toFixed(0)}% salarial)  Net     ${fmt(net_avant_ir_s1)}`,
-    `× (1 - ${(tmi_val*100).toFixed(0)}% TMI)           Net IR  ${fmt(s1_net)}`,
-  ].join('\n');
-  setCard('s2', s2_net, r2, forme === 'SAS' ? 'Flat tax — PFU 31,4 %' : 'TNS + PFU selon seuil 10 %');
-  setCard('s3', s3_net, r3, 'Régime mère-fille · IS');
-
-  // Best / worst
-  const vals = [s1_net, s2_net, s3_net];
-  const ids = ['s1', 's2', 's3'];
-  const maxV = Math.max(...vals), minV = Math.min(...vals);
-  ids.forEach((id, i) => {
+  function setCard(id, cout, sub, note) {
+    document.getElementById('amt-' + id).textContent = fmt(cout);
+    document.getElementById('sub-' + id).textContent = sub;
+    if (document.getElementById('note-' + id)) document.getElementById('note-' + id).textContent = note || '';
     const card = document.getElementById('card-' + id);
     card.classList.remove('best', 'worst');
-    if (vals[i] === maxV) card.classList.add('best');
-    else if (vals[i] === minV) card.classList.add('worst');
-  });
+    if (cout === minC) card.classList.add('best');
+    else if (cout === maxC) card.classList.add('worst');
+  }
 
-  // Barres
-  const maxBar = Math.max(r1, r2, r3);
+  setCard('s1', s1_cout,
+    forme === 'SAS' ? 'Assimilé-salarié SAS' : 'Gérant TNS SARL',
+    'Économie IS = salaire déductible');
+  setCard('s2', s2_cout, sub2, note2);
+  setCard('s3', s3_cout, 'Régime mère-fille · IS', '');
+
+  // Tooltips
+  document.getElementById('tooltip-s1').innerHTML = [
+    `<span class="tt-sep">── Calcul à l'envers ──────────────</span>`,
+    `Net cible                <span class="tt-pos">${fmt(cible)}</span>`,
+    `÷ (1 - ${(tmi*100).toFixed(0)}% TMI)         Net av. IR  ${fmt(net_avant_ir_s1)}`,
+    `÷ (1 - ${(cs_sal*100).toFixed(0)}% salarial)   Brut        ${fmt(brut_s1)}`,
+    `× (1 + ${(cs_pat*100).toFixed(0)}% patronal)   Coût emp.   ${fmt(cout_emp)}`,
+    `<span class="tt-sep">── Économie IS ─────────────────────</span>`,
+    `IS économisé            <span class="tt-pos">+ ${fmt(eco_is_s1)}</span>`,
+    `<span class="tt-sep">────────────────────────────────────</span>`,
+    `Coût net société        <span class="tt-pos">${fmt(s1_cout)}</span>`,
+  ].join('\n');
+
+  document.getElementById('tooltip-s2').innerHTML = tooltip2_lines.map(l =>
+    l.replace(/\+ /g, '<span class="tt-pos">+ ').replace(/- /g, '<span class="tt-neg">- ')
+  ).join('\n');
+
+  document.getElementById('tooltip-s3').innerHTML = [
+    `<span class="tt-sep">── Holding + SCI ───────────────────</span>`,
+    `Bénéfice nécessaire     ${fmt(B3)}`,
+    `IS exploitation         <span class="tt-neg">- ${fmt(is_expl3)}</span>`,
+    `Dividende holding       ${fmt(div_vers_holding)}`,
+    `IS mère-fille           <span class="tt-neg">- ${fmt(is_holding)}</span>`,
+    `Frais structure         <span class="tt-neg">- ${fmt(frais_fixes)}</span>`,
+    `<span class="tt-sep">────────────────────────────────────</span>`,
+    `Net disponible          <span class="tt-pos">${fmt(net_holding)}</span>`,
+  ].join('\n');
+
+  // Barres (plus le coût est bas, mieux c'est → barre inversée)
+  const maxBar = Math.max(s1_cout, s2_cout, s3_cout);
   ['s1','s2','s3'].forEach((id, i) => {
-    const r = [r1,r2,r3][i];
-    document.getElementById('bar-' + id).style.width = (r / maxBar * 100) + '%';
-    document.getElementById('barpct-' + id).textContent = (r * 100).toFixed(1) + '%';
+    const c = [s1_cout, s2_cout, s3_cout][i];
+    document.getElementById('bar-' + id).style.width = (c / maxBar * 100) + '%';
+    document.getElementById('barpct-' + id).textContent = fmt(c);
   });
   document.getElementById('bar-label-s1').textContent = forme === 'SAS' ? 'Salaire SAS' : 'Salaire SARL';
   document.getElementById('bar-label-s2').textContent = forme === 'SAS' ? 'Dividendes SAS' : 'Dividendes SARL';
 
-  // Seuil
-  if (seuil_rentabilite !== null && seuil_rentabilite > 0) {
-    document.getElementById('seuil-val').textContent = fmt(seuil_rentabilite);
-    document.getElementById('seuil-sub').textContent = 'À partir de ce bénéfice, le montage est rentable vs extraction directe';
+  // Decision bar
+  const meilleur_direct = Math.min(s1_cout, s2_cout);
+  const gain = meilleur_direct - s3_cout;
+  const db = document.getElementById('decision-bar');
+  if (gain > 0) {
+    db.className = 'decision-bar favorable';
+    db.innerHTML = `Avantage holding : <span>${fmt(gain)} / an</span> d'économie pour la société — soit <span>${fmt(gain * 5)}</span> sur 5 ans et <span>${fmt(gain * 10)}</span> sur 10 ans.`;
   } else {
-    document.getElementById('seuil-val').textContent = 'Déjà rentable';
-    document.getElementById('seuil-sub').textContent = 'Le montage est avantageux dès le premier euro de bénéfice';
+    db.className = 'decision-bar neutre';
+    db.innerHTML = `À ce niveau, les frais de structure (${fmt(frais_fixes)}/an) absorbent l'avantage fiscal. <span>Augmentez le montant à investir</span> pour rentabiliser le montage.`;
   }
 
-  // Gain
-  document.getElementById('gain-val').textContent = gain >= 0 ? '+' + fmt(gain) : fmt(gain);
-  document.getElementById('gain-sub').textContent = 'vs ' + (s1_net > s2_net ? 'scénario salaire' : 'dividendes directs');
-
   // Waterfall
-  document.getElementById('wf-0').textContent = fmt(B);
-  document.getElementById('wf-1').textContent = '− ' + fmt(is_expl_h);
+  document.getElementById('wf-0').textContent = fmt(B3);
+  document.getElementById('wf-1').textContent = '− ' + fmt(is_expl3);
   document.getElementById('wf-2').textContent = fmt(div_vers_holding);
   document.getElementById('wf-3').textContent = '− ' + fmt(is_holding);
   document.getElementById('wf-4').textContent = fmt(dispo_avant_frais);
   document.getElementById('wf-5').textContent = '− ' + fmt(cout_h);
   document.getElementById('wf-6').textContent = '− ' + fmt(cout_s);
-  document.getElementById('wf-7').textContent = '− ' + fmt(amort_annuel);
-  document.getElementById('wf-8').textContent = fmt(s3_net);
+  document.getElementById('wf-7').textContent = '− ' + fmt(amort);
+  document.getElementById('wf-8').textContent = fmt(net_holding);
 
-  // Decision bar
-  const db = document.getElementById('decision-bar');
-  db.style.display = 'block';
-  if (gain > 0) {
-    db.className = 'decision-bar favorable';
-    db.innerHTML = `Avantage holding : <span>${fmt(gain)} / an</span> de capital supplémentaire disponible pour l'investissement. Le montage se justifie à partir de <span>${seuil_rentabilite ? fmt(seuil_rentabilite) : 'moins que votre bénéfice actuel'}</span> de bénéfice annuel.`;
-  } else {
-    db.className = 'decision-bar defavorable';
-    db.innerHTML = `Les frais de structure absorbent l'avantage fiscal. À ce niveau de bénéfice, l'extraction directe est plus efficiente de <span>${fmt(Math.abs(gain))}</span>. Le seuil de rentabilité du montage est à <span>${seuil_rentabilite ? fmt(seuil_rentabilite) : '—'}</span>.`;
-  }
+  // Projection
+  updateProjection();
 }
 
-function setCard(id, val, rate, sub) {
-  document.getElementById('amt-' + id).textContent = fmt(val);
-  document.getElementById('rate-' + id).textContent = 'taux de rétention : ' + (rate * 100).toFixed(1) + '%';
-  document.getElementById('sub-' + id).textContent = sub;
+function updateSlider() {
+  const v = document.getElementById('slider-ans').value;
+  document.getElementById('slider-display').textContent = v + ' an' + (v > 1 ? 's' : '');
+  updateProjection();
 }
 
-// Init
+function updateProjection() {
+  const maxAns = parseInt(document.getElementById('slider-ans').value);
+  const annees = [1, 2, 3, 5, 10, 15, 20].filter(a => a <= maxAns);
+  if (!annees.includes(maxAns)) annees.push(maxAns);
+  annees.sort((a, b) => a - b);
+
+  document.getElementById('th-s1').textContent = forme === 'SAS' ? 'Salaire SAS' : 'Salaire SARL';
+  document.getElementById('th-s2').textContent = forme === 'SAS' ? 'Dividendes SAS' : 'Dividendes SARL';
+
+  const tbody = document.getElementById('proj-body');
+  tbody.innerHTML = '';
+
+  annees.forEach(n => {
+    const c1 = _s1_cout * n;
+    const c2 = _s2_cout * n;
+    const c3 = _s3_cout * n;
+    const net1 = _cible * n;
+    const net2 = _cible * n;
+    const net3 = _cible * n;
+    const meilleur = Math.min(c1, c2, c3);
+    const pire = Math.max(c1, c2, c3);
+    const avantage = Math.min(c1, c2) - c3;
+
+    const tr = document.createElement('tr');
+    if (n === maxAns) tr.classList.add('highlight');
+
+    function cls(c) {
+      if (c === meilleur) return 'val-best';
+      if (c === pire) return 'val-worst';
+      return '';
+    }
+
+    tr.innerHTML = `
+      <td>${n} an${n > 1 ? 's' : ''}</td>
+      <td class="${cls(c1)}">${fmt(c1)}</td>
+      <td class="${cls(c2)}">${fmt(c2)}</td>
+      <td class="${cls(c3)}">${fmt(c3)}</td>
+      <td class="${avantage > 0 ? 'val-best' : 'val-worst'}">${avantage > 0 ? '− ' + fmt(avantage) : '+' + fmt(Math.abs(avantage))}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
 window.addEventListener('load', simulate);
-
-// Live update
 document.querySelectorAll('input, select').forEach(el => {
   el.addEventListener('input', simulate);
   el.addEventListener('change', simulate);

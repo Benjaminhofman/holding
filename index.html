@@ -502,6 +502,21 @@ function simulate(){
   document.getElementById('w8').textContent=fmt(net_h);
 
   updateProjection();
+
+  var seuil_aff = (g('capital')+g('cca'))*0.10;
+  var detail_div = document.getElementById('div-detail');
+  if(detail_div && forme==='SARL' && dtn2>0){
+    detail_div.innerHTML =
+      'Seuil TNS = 10% × '+fmt(g('capital')+g('cca'))+' = '+fmt(seuil_aff)+'<br>'+
+      'Fraction PFU (≤ '+fmt(seuil_aff)+') : '+fmt(Math.min(dt,seuil_aff))+' × (1-'+(pfu*100).toFixed(1)+'%) = '+fmt(Math.min(dt,seuil_aff)*(1-pfu))+'<br>'+
+      'Fraction TNS : '+fmt(dtn2)+'<br>'+
+      'Net TNS = '+fmt(dtn2)+' × (1-'+(cs_tns_d*100).toFixed(0)+'%) × (1-'+(ir_pfu*100).toFixed(1)+'%) = '+fmt(dtn2*(1-cs_tns_d)*(1-ir_pfu))+'<br>'+
+      'Dividende total : '+fmt(dt)+'<br>'+
+      'Cotis. TNS déductibles : - '+fmt(dtn2*cs_tns_d)+'<br>'+
+      'Base IS : '+fmt(dt-dtn2*cs_tns_d)+'<br>'+
+      'IS payé : - '+fmt(calcIS(dt-dtn2*cs_tns_d))+'<br>'+
+      '<b>Bénéfice nécessaire : '+fmt(beneB)+'</b>';
+  }
 }
 
 function updateSlider(){

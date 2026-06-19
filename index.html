@@ -358,7 +358,14 @@ function simulate(){
     }
     sub2='TNS + PFU selon seuil 10%';
     note2='Économie IS sur cotisations TNS déductibles';
-    tt2='<b>Dividendes SARL</b><br>'+
+    if(dtn2 <= 0){
+      tt2 = '<b>Dividendes SARL (tout en PFU)</b><br>'+
+        'Net cible : <span class="tp">'+fmt(cible)+'</span><br>'+
+        '÷ (1 - '+((pfu)*100).toFixed(1)+'% PFU) = Div. brut : '+fmt(cible/(1-pfu))+'<br>'+
+        'IS exploitation : <span class="tn">− '+fmt(calcIS(beneB))+'</span><br>'+
+        '<b>Bénéfice nécessaire : '+fmt(beneB)+'</b>';
+    } else {
+      tt2='<b>Dividendes SARL</b><br>'+
         'Net cible : <span class="tp">'+fmt(cible)+'</span><br>'+
         'Dont PFU (≤ 10% cap.) : '+fmt(dp2)+'<br>'+
         'Dont TNS (> 10% cap.) : '+fmt(dtn2)+'<br>'+
@@ -366,6 +373,7 @@ function simulate(){
         'IR '+(ir_pfu*100).toFixed(1)+'% sur part TNS : <span class="tn">− '+fmt(dtn2*(1-cs_tns_d)*ir_pfu)+'</span><br>'+
         'Économie IS : <span class="tp">+ '+fmt(eco_is_s2)+'</span><br>'+
         '<b>Bénéfice nécessaire : '+fmt(beneB)+'</b>';
+    }
   }
 
   // SCENARIO C — Holding

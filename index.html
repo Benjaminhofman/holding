@@ -191,8 +191,6 @@ footer{text-align:center;padding:14px;font-size:10px;color:var(--muted);font-fam
       <div class="ctitle">Salaire</div>
       <div class="csub" id="sub-s1">—</div>
       <div class="camt" id="amt-s1">—</div>
-      <div class="clabel">bénéfice avant IS nécessaire</div>
-      <div class="cnote" id="note-s1"></div>
       <div class="tb" id="tt-s1"></div>
     </div>
     <div class="card tw" id="card-s2">
@@ -420,7 +418,7 @@ function simulate(){
       else if(cout===mx) c.classList.add('worst');
     }
   }
-  setCard('s1',cout_emp,forme==='SAS'?'Assimilé-salarié SAS':'Gérant TNS SARL','Économie IS = salaire déductible');
+  setCard('s1',cout_emp,forme==='SAS'?'Assimilé-salarié SAS':'Gérant TNS SARL','');
   setCard('s2',beneB,sub2,forme==='SARL'?'':note2);
   setCard('s3',s3,'Régime mère-fille · IS','');
 

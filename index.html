@@ -409,12 +409,20 @@ function simulate(){
   document.getElementById('bl-s2').textContent=forme==='SAS'?'Dividendes SAS':'Dividendes SARL';
 
   // Decision bar
-  var best_direct=Math.min(s1,s2);
-  var gain=best_direct-s3;
   var db=document.getElementById('dbar');
-  if(gain>0){
+  var best_direct = Math.min(s1, beneB);
+  var gain_div = beneB - s3;
+  var gain_sal = s1 - s3;
+
+  if(gain_div > 0){
     db.className='dbar fav';
-    db.innerHTML='Avantage holding : <span>'+fmt(gain)+' / an</span> d\'économie pour la société — soit <span>'+fmt(gain*5)+'</span> sur 5 ans et <span>'+fmt(gain*10)+'</span> sur 10 ans.';
+    db.innerHTML=
+      'Pour disposer de <span>'+fmt(cible)+'</span> par an à investir dans l\'immobilier :<br><br>'+
+      '→ votre société doit générer <span>'+fmt(s1)+'</span> en rémunération,<br>'+
+      '→ <span>'+fmt(beneB)+'</span> en dividendes,<br>'+
+      '→ seulement <span>'+fmt(s3)+'</span> via une holding.<br><br>'+
+      'Soit une économie de <span>'+fmt(gain_div)+'</span> / an vs dividendes '+
+      'et <span>'+fmt(gain_sal)+'</span> / an vs salaire.';
   } else {
     db.className='dbar neu';
     db.innerHTML='À ce niveau, les frais de structure (<span>'+fmt(frais)+'/an</span>) absorbent l\'avantage fiscal. Augmentez le montant à investir pour rentabiliser le montage.';

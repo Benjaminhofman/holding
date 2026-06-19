@@ -134,6 +134,11 @@ footer{text-align:center;padding:14px;font-size:10px;color:var(--muted);font-fam
     <input type="number" id="capital" value="10000" step="1000">
     <div class="hint">Seuil 10% = cotisations TNS sur dividendes</div>
   </div>
+  <div class="ig" id="grp-cca" style="display:none">
+    <label>Comptes courants d'associés (€)</label>
+    <input type="number" id="cca" value="0" step="10000">
+    <div class="hint">Seuil TNS = 10% × (capital + CCA)</div>
+  </div>
   <div class="ig">
     <label>TMI (IR)</label>
     <select id="tmi">

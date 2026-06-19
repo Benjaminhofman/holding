@@ -43,6 +43,8 @@ main{padding:24px 28px;overflow-y:auto}
 .card.best .camt{color:var(--green)}.card.worst .camt{color:var(--red)}
 .clabel{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:3px}
 .cnote{font-size:10px;color:#9ca3af;font-family:var(--mono);margin-top:4px;font-style:italic}
+.cdetail{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:3px}
+.cdetail.eco{color:var(--green)}
 .tw{position:relative}
 .tb{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1e293b;color:#e2e8f0;border:1px solid #334155;border-radius:8px;padding:12px 14px;font-family:var(--mono);font-size:11px;line-height:1.9;z-index:200;min-width:270px;box-shadow:0 8px 32px rgba(0,0,0,.2);pointer-events:none}
 .tb::before{content:'';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-bottom-color:#334155}
@@ -159,7 +161,9 @@ footer{text-align:center;padding:14px;font-size:10px;color:var(--muted);font-fam
       <div class="ctitle">Salaire</div>
       <div class="csub" id="sub-s1">—</div>
       <div class="camt" id="amt-s1">—</div>
-      <div class="clabel">coût pour la société</div>
+      <div class="cdetail" id="detail-cout-s1"></div>
+      <div class="cdetail eco" id="detail-eco-s1"></div>
+      <div class="clabel">bénéfice avant IS nécessaire</div>
       <div class="cnote" id="note-s1"></div>
       <div class="tb" id="tt-s1"></div>
     </div>
@@ -168,7 +172,7 @@ footer{text-align:center;padding:14px;font-size:10px;color:var(--muted);font-fam
       <div class="ctitle">Dividendes directs</div>
       <div class="csub" id="sub-s2">—</div>
       <div class="camt" id="amt-s2">—</div>
-      <div class="clabel">coût pour la société</div>
+      <div class="clabel">bénéfice avant IS nécessaire</div>
       <div class="cnote" id="note-s2"></div>
       <div class="tb" id="tt-s2"></div>
     </div>
@@ -177,7 +181,7 @@ footer{text-align:center;padding:14px;font-size:10px;color:var(--muted);font-fam
       <div class="ctitle">Holding + SCI</div>
       <div class="csub">Régime mère-fille · IS</div>
       <div class="camt" id="amt-s3">—</div>
-      <div class="clabel">coût pour la société</div>
+      <div class="clabel">bénéfice avant IS nécessaire</div>
       <div class="cnote" id="note-s3">Argent disponible dans la holding</div>
       <div class="tb" id="tt-s3"></div>
     </div>

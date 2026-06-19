@@ -390,9 +390,14 @@ function simulate(){
   document.getElementById('tt-s1').innerHTML=
     '<b>Calcul à l\'envers</b><br>'+
     'Net cible : <span class="tp">'+fmt(cible)+'</span><br>'+
-    '÷ (1 − '+(tmi*100).toFixed(0)+'% TMI) = Net av. IR : '+fmt(net_av_ir)+'<br>'+
-    '÷ (1 − '+(cs_sal*100).toFixed(0)+'% salarial) = Brut : '+fmt(brut)+'<br>'+
-    '× (1 + '+(cs_pat*100).toFixed(0)+'% patronal) = Coût emp. : '+fmt(cout_emp)+'<br>'+
+    (forme==='SAS' ?
+      '÷ (1 − '+(tmi*100).toFixed(0)+'% TMI) = Net av. IR : '+fmt(net_av_ir)+'<br>'+
+      '÷ (1 − '+(cs_sal*100).toFixed(0)+'% salarial) = Brut : '+fmt(brut)+'<br>'+
+      '× (1 + '+(cs_pat*100).toFixed(0)+'% patronal) = Coût emp. : '+fmt(cout_emp)+'<br>'
+    :
+      '÷ (1 − '+(tmi*100).toFixed(0)+'% TMI) = Rém. nette : '+fmt(net_av_ir)+'<br>'+
+      '× (1 + '+(cs_tns_r*100).toFixed(0)+'% cotis. TNS) = Coût : '+fmt(cout_emp)+'<br>'
+    )+
     'Base IS = 0 € (salaire déduit du résultat)<br>'+
     'IS évité : <span class="tp">+ '+fmt(eco_is_s1)+'</span><br>'+
     '<b>Bénéfice nécessaire : <span class="tp">'+fmt(cout_emp)+'</span></b><br>'+

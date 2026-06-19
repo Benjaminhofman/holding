@@ -311,17 +311,15 @@ function simulate(){
   var frais=cpt_h+cpt_s+amort;
 
   // SCENARIO A — Salaire
-  var brut, cout_emp, eco_is_s1, net_av_ir;
+  var brut, cout_emp, net_av_ir;
   if(forme==='SAS'){
     brut = cible/(1-tmi)/(1-cs_sal);
     cout_emp = brut*(1+cs_pat);
-    eco_is_s1 = calcIS(cout_emp);
     net_av_ir = brut*(1-cs_sal);
   } else {
     // SARL TNS : cotisations sur rémunération nette, déductibles IS
     var rem_nette = cible/(1-tmi);
     cout_emp = rem_nette*(1+cs_tns_r);
-    eco_is_s1 = calcIS(cout_emp);
     net_av_ir = rem_nette;
     brut = rem_nette;
   }

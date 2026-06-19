@@ -201,7 +201,6 @@ footer{text-align:center;padding:14px;font-size:10px;color:var(--muted);font-fam
       <div class="csub" id="sub-s2">—</div>
       <div class="camt" id="amt-s2">—</div>
       <div class="clabel">bénéfice avant IS nécessaire</div>
-      <div class="cnote" id="note-s2"></div>
       <div class="tb" id="tt-s2"></div>
     </div>
     <div class="card tw" id="card-s3">
@@ -387,7 +386,6 @@ function simulate(){
         'cotis. '+fmt(dtn2*cs_tns_d)+'€ + IR '+fmt(dtn2*(1-cs_tns_d)*ir_pfu)+'€<br>'+
         '= '+fmt(dtn2*cs_tns_d + dtn2*(1-cs_tns_d)*ir_pfu)+' € prélevés sur '+fmt(dtn2)+' € brut<br>'+
         'soit '+(((dtn2*cs_tns_d + dtn2*(1-cs_tns_d)*ir_pfu)/dtn2*100).toFixed(1))+'% de friction totale</i>'+
-        'Économie IS (cotis. '+fmt(dtn2*cs_tns_d)+'€ déductibles) : <span class="tp">+ '+fmt(eco_is_s2)+'</span><br>'+
         '<b>Bénéfice nécessaire : '+fmt(beneB)+'</b>';
     }
   }
@@ -423,7 +421,7 @@ function simulate(){
     }
   }
   setCard('s1',cout_emp,forme==='SAS'?'Assimilé-salarié SAS':'Gérant TNS SARL','Économie IS = salaire déductible');
-  setCard('s2',beneB,sub2,note2);
+  setCard('s2',beneB,sub2,forme==='SARL'?'':note2);
   setCard('s3',s3,'Régime mère-fille · IS','');
 
   // Tooltips

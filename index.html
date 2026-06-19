@@ -457,15 +457,15 @@ function simulate(){
 
   // Decision bar
   var db=document.getElementById('dbar');
-  var best_direct = Math.min(s1, beneB);
+  var best_direct = Math.min(cout_emp, beneB);
   var gain_div = beneB - s3;
-  var gain_sal = s1 - s3;
+  var gain_sal = cout_emp - s3;
 
   if(gain_div > 0){
     db.className='dbar fav';
     db.innerHTML=
       'Pour disposer de <span>'+fmt(cible)+'</span> par an à investir dans l\'immobilier :<br><br>'+
-      '→ votre société doit générer <span>'+fmt(s1)+'</span> en rémunération,<br>'+
+      '→ votre société doit générer <span>'+fmt(cout_emp)+'</span> en rémunération,<br>'+
       '→ <span>'+fmt(beneB)+'</span> en dividendes,<br>'+
       '→ seulement <span>'+fmt(s3)+'</span> via une holding.<br><br>'+
       'Soit une économie de <span>'+fmt(gain_div)+'</span> / an vs dividendes '+

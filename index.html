@@ -348,6 +348,7 @@ function simulate(){
         'Dont PFU (≤ 10% cap.) : '+fmt(dp2)+'<br>'+
         'Dont TNS (> 10% cap.) : '+fmt(dtn2)+'<br>'+
         'Cotis. TNS déductibles : <span class="tn">− '+fmt(cotis)+'</span><br>'+
+        'IR '+(ir_pfu*100).toFixed(1)+'% sur part TNS : <span class="tn">− '+fmt(dtn2*(1-cs_tns_d)*ir_pfu)+'</span><br>'+
         'Économie IS : <span class="tp">+ '+fmt(eco_is_s2)+'</span><br>'+
         '<b>Bénéfice nécessaire : '+fmt(beneB)+'</b>';
   }

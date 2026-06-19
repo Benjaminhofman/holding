@@ -267,6 +267,7 @@ function setForme(f){
   document.getElementById('btn-sas').classList.toggle('active',f==='SAS');
   document.getElementById('btn-sarl').classList.toggle('active',f==='SARL');
   document.getElementById('grp-capital').style.display=f==='SARL'?'block':'none';
+  document.getElementById('grp-cca').style.display=f==='SARL'?'block':'none';
   simulate();
 }
 

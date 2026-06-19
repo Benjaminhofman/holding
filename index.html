@@ -366,7 +366,8 @@ function simulate(){
     '÷ (1 − '+(tmi*100).toFixed(0)+'% TMI) = Net av. IR : '+fmt(net_av_ir)+'<br>'+
     '÷ (1 − '+(cs_sal*100).toFixed(0)+'% salarial) = Brut : '+fmt(brut)+'<br>'+
     '× (1 + '+(cs_pat*100).toFixed(0)+'% patronal) = Coût emp. : '+fmt(cout_emp)+'<br>'+
-    'IS économisé (déductible) : <span class="tp">+ '+fmt(eco_is_s1)+'</span><br>'+
+    'Base IS = 0 € (salaire déduit du résultat)<br>'+
+    'IS évité : <span class="tp">+ '+fmt(eco_is_s1)+'</span><br>'+
     '<b>Coût net société : <span class="tp">'+fmt(s1)+'</span></b>';
 
   document.getElementById('tt-s2').innerHTML=tt2;

@@ -468,9 +468,13 @@
         <input type="number" id="ir_pfu" value="12.8" step="0.1" min="0" max="100">
       </div>
       <div class="input-group">
-        <label>Cotisations sociales salaire (%)</label>
-        <input type="number" id="cs_salaire" value="45" step="1" min="0" max="100">
-        <div class="hint">Employeur + salarié, en % du coût total</div>
+        <label>Charges patronales (% du brut)</label>
+        <input type="number" id="cs_patronal" value="45" step="1" min="0" max="100">
+        <div class="hint">Coût total employeur = brut × (1 + patronal)</div>
+      </div>
+      <div class="input-group">
+        <label>Charges salariales (% du brut)</label>
+        <input type="number" id="cs_salarial" value="22" step="1" min="0" max="100">
       </div>
       <div class="input-group">
         <label>Cotisations TNS sur dividendes (%)</label>
@@ -686,7 +690,6 @@ function simulate() {
   const tmi_val = parseFloat(document.getElementById('tmi').value);
   const ps = g('ps_pfu') / 100;
   const ir_pfu = g('ir_pfu') / 100;
-  const cs_sal = g('cs_salaire') / 100;
   const cs_tns = g('cs_tns') / 100;
   const capital = g('capital');
   const qp = g('qp_mere_fille') / 100;
@@ -700,12 +703,12 @@ function simulate() {
   const tauxR = g('is_reduit') / 100;
 
   // --- SCENARIO A : SALAIRE ---
-  // IS payé sur bénéfice résiduel — ici on verse tout en salaire avant IS
-  // Salaire brut = B / (1 + cs_sal) si cs_sal = part patronale
-  // Convention : cs_sal = % du coût total → net = B * (1 - cs_sal)
-  const sal_net_avant_ir = B * (1 - cs_sal);
-  const sal_ir = sal_net_avant_ir * tmi_val;
-  const s1_net = sal_net_avant_ir - sal_ir;
+  const cs_patronal = g('cs_patronal') / 100;
+  const cs_salarial = g('cs_salarial') / 100;
+  // Salaire : IS = 0 car charge déductible
+  const sal_brut = B / (1 + cs_patronal);
+  const sal_net_avant_ir = sal_brut * (1 - cs_salarial);
+  const s1_net = sal_net_avant_ir * (1 - tmi_val);
 
   // --- SCENARIO B : DIVIDENDES DIRECTS ---
   const is_expl = calcIS(B);

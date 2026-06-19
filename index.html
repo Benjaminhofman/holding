@@ -470,11 +470,12 @@
       <div class="input-group">
         <label>Charges patronales (% du brut)</label>
         <input type="number" id="cs_patronal" value="45" step="1" min="0" max="100">
-        <div class="hint">Coût total employeur = brut × (1 + patronal)</div>
+        <div class="hint">SAS (assimilé-salarié) ≈ 45 % patronal / SARL (TNS) ≈ 25 %</div>
       </div>
       <div class="input-group">
         <label>Charges salariales (% du brut)</label>
         <input type="number" id="cs_salarial" value="22" step="1" min="0" max="100">
+        <div class="hint">SAS ≈ 22 % salarial / SARL TNS : inclus dans le taux global</div>
       </div>
       <div class="input-group">
         <label>Cotisations TNS sur dividendes (%)</label>
@@ -658,6 +659,8 @@ function setForme(f) {
   document.getElementById('btn-sas').classList.toggle('active', f === 'SAS');
   document.getElementById('btn-sarl').classList.toggle('active', f === 'SARL');
   document.getElementById('group-capital').style.display = f === 'SARL' ? 'block' : 'none';
+  document.getElementById('cs_patronal').value = f === 'SAS' ? 45 : 25;
+  document.getElementById('cs_salarial').value = f === 'SAS' ? 22 : 22;
   simulate();
 }
 
@@ -709,6 +712,7 @@ function simulate() {
   const sal_brut = B / (1 + cs_patronal);
   const sal_net_avant_ir = sal_brut * (1 - cs_salarial);
   const s1_net = sal_net_avant_ir * (1 - tmi_val);
+  // Coût total SAS ≈ 67% du brut / SARL TNS ≈ 45% du net
 
   // --- SCENARIO B : DIVIDENDES DIRECTS ---
   const is_expl = calcIS(B);

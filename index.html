@@ -347,7 +347,15 @@ function simulate(){
     var eco_is_s2=calcIS(B2b)-calcIS(B2b-cotis);
     s2=B2b-eco_is_s2;
     var cotis2=dtn2*cs_tns_d;
-    beneB=dt+calcIS(dt-cotis2);
+    if(dtn2 <= 0){
+      var div_brut2 = cible/(1-pfu);
+      var B2b2 = div_brut2*1.4;
+      for(var i=0;i<25;i++) B2b2 = div_brut2 + calcIS(B2b2);
+      beneB = B2b2;
+      s2 = B2b2;
+    } else {
+      beneB=dt+calcIS(dt-cotis2);
+    }
     sub2='TNS + PFU selon seuil 10%';
     note2='Économie IS sur cotisations TNS déductibles';
     tt2='<b>Dividendes SARL</b><br>'+

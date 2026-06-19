@@ -353,8 +353,6 @@ function simulate(){
     var cotis=dtn2*cs_tns_d;
     var B2b=dt*1.4;
     for(var i=0;i<25;i++) B2b=(dt-cotis)+calcIS(B2b-cotis)+cotis;
-    var eco_is_s2=calcIS(B2b)-calcIS(B2b-cotis);
-    s2=B2b-eco_is_s2;
     var cotis2=dtn2*cs_tns_d;
     if(dtn2 <= 0){
       var div_brut2 = cible/(1-pfu);

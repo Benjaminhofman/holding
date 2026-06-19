@@ -508,14 +508,13 @@ function simulate(){
   if(detail_div && forme==='SARL' && dtn2>0){
     detail_div.innerHTML =
       'Seuil TNS = 10% × '+fmt(g('capital')+g('cca'))+' = '+fmt(seuil_aff)+'<br>'+
-      'Fraction PFU (≤ '+fmt(seuil_aff)+') : '+fmt(Math.min(dt,seuil_aff))+' × (1-'+(pfu*100).toFixed(1)+'%) = '+fmt(Math.min(dt,seuil_aff)*(1-pfu))+'<br>'+
-      'Fraction TNS : '+fmt(dtn2)+'<br>'+
-      'Net TNS = '+fmt(dtn2)+' × (1-'+(cs_tns_d*100).toFixed(0)+'%) × (1-'+(ir_pfu*100).toFixed(1)+'%) = '+fmt(dtn2*(1-cs_tns_d)*(1-ir_pfu))+'<br>'+
-      'Dividende total : '+fmt(dt)+'<br>'+
-      'Cotis. TNS déductibles : - '+fmt(dtn2*cs_tns_d)+'<br>'+
-      'Base IS : '+fmt(dt-dtn2*cs_tns_d)+'<br>'+
-      'IS payé : - '+fmt(calcIS(dt-dtn2*cs_tns_d))+'<br>'+
-      '<b>Bénéfice nécessaire : '+fmt(beneB)+'</b>';
+      'Fraction PFU (≤ '+fmt(seuil_aff)+') :<br>'+
+      'Net = '+fmt(Math.min(dt,seuil_aff))+' × (1 - '+(pfu*100).toFixed(1)+'%) = '+fmt(Math.min(dt,seuil_aff)*(1-pfu))+'<br>'+
+      '<br>'+
+      'Fraction TNS (> '+fmt(seuil_aff)+') :<br>'+
+      'Reste = '+fmt(cible)+' - '+fmt(Math.min(dt,seuil_aff)*(1-pfu))+' = '+fmt(cible - Math.min(dt,seuil_aff)*(1-pfu))+'<br>'+
+      'Net = dtn × (1 - '+(cs_tns_d*100).toFixed(0)+'%) × (1 - '+(ir_pfu*100).toFixed(1)+'%) = dtn × '+(1-cs_tns_d).toFixed(2)+' × '+(1-ir_pfu).toFixed(3)+'<br>'+
+      'dtn = '+fmt(cible - Math.min(dt,seuil_aff)*(1-pfu))+' / '+((1-cs_tns_d)*(1-ir_pfu)).toFixed(4)+' = '+fmt(dtn2)+'<br>';
   }
   if(detail_div && (forme==='SAS' || dtn2<=0)){
     detail_div.innerHTML =

@@ -1018,7 +1018,7 @@ function updateProjection() {
   });
 }
 
-window.addEventListener('load', simulate);
+document.addEventListener('DOMContentLoaded', simulate);
 document.querySelectorAll('input, select').forEach(el => {
   el.addEventListener('input', simulate);
   el.addEventListener('change', simulate);

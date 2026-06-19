@@ -260,7 +260,7 @@
     font-family: var(--mono);
     font-size: 11px;
     line-height: 2;
-    white-space: pre-wrap;
+    white-space: normal;
     z-index: 200;
     min-width: 280px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.18);
@@ -905,32 +905,25 @@ function simulate() {
   setCard('s3', s3_cout, 'Régime mère-fille · IS', '');
 
   // Tooltips
-  document.getElementById('tooltip-s1').innerHTML = [
-    `<span class="tt-sep">── Calcul à l'envers ──────────────</span>`,
-    `Net cible                <span class="tt-pos">${fmt(cible)}</span>`,
-    `÷ (1 - ${(tmi*100).toFixed(0)}% TMI)         Net av. IR  ${fmt(net_avant_ir_s1)}`,
-    `÷ (1 - ${(cs_sal*100).toFixed(0)}% salarial)   Brut        ${fmt(brut_s1)}`,
-    `× (1 + ${(cs_pat*100).toFixed(0)}% patronal)   Coût emp.   ${fmt(cout_emp)}`,
-    `<span class="tt-sep">── Économie IS ─────────────────────</span>`,
-    `IS économisé            <span class="tt-pos">+ ${fmt(eco_is_s1)}</span>`,
-    `<span class="tt-sep">────────────────────────────────────</span>`,
-    `Coût net société        <span class="tt-pos">${fmt(s1_cout)}</span>`,
-  ].join('<br>');
+  document.getElementById('tooltip-s1').innerHTML =
+    '<b>Calcul à l\'envers</b><br>' +
+    'Net cible : <span class="tt-pos">' + fmt(cible) + '</span><br>' +
+    '÷ (1 - ' + (tmi*100).toFixed(0) + '% TMI) → Net av. IR : ' + fmt(net_avant_ir_s1) + '<br>' +
+    '÷ (1 - ' + (cs_sal*100).toFixed(0) + '% salarial) → Brut : ' + fmt(brut_s1) + '<br>' +
+    '× (1 + ' + (cs_pat*100).toFixed(0) + '% patronal) → Coût emp. : ' + fmt(cout_emp) + '<br>' +
+    '<b>IS économisé (déductible) : <span class="tt-pos">+ ' + fmt(eco_is_s1) + '</span></b><br>' +
+    '<b>Coût net société : <span class="tt-pos">' + fmt(s1_cout) + '</span></b>';
 
-  document.getElementById('tooltip-s2').innerHTML = tooltip2_lines.map(l =>
-    l.replace(/\+ /g, '<span class="tt-pos">+ ').replace(/- /g, '<span class="tt-neg">- ')
-  ).join('<br>');
+  document.getElementById('tooltip-s2').innerHTML = tooltip2_lines.join('<br>');
 
-  document.getElementById('tooltip-s3').innerHTML = [
-    `<span class="tt-sep">── Holding + SCI ───────────────────</span>`,
-    `Bénéfice nécessaire     ${fmt(B3)}`,
-    `IS exploitation         <span class="tt-neg">- ${fmt(is_expl3)}</span>`,
-    `Dividende holding       ${fmt(div_vers_holding)}`,
-    `IS mère-fille           <span class="tt-neg">- ${fmt(is_holding)}</span>`,
-    `Frais structure         <span class="tt-neg">- ${fmt(frais_fixes)}</span>`,
-    `<span class="tt-sep">────────────────────────────────────</span>`,
-    `Net disponible          <span class="tt-pos">${fmt(net_holding)}</span>`,
-  ].join('<br>');
+  document.getElementById('tooltip-s3').innerHTML =
+    '<b>Holding + SCI</b><br>' +
+    'Bénéfice nécessaire : ' + fmt(B3) + '<br>' +
+    'IS exploitation : <span class="tt-neg">− ' + fmt(is_expl3) + '</span><br>' +
+    'Dividende holding : ' + fmt(div_vers_holding) + '<br>' +
+    'IS mère-fille : <span class="tt-neg">− ' + fmt(is_holding) + '</span><br>' +
+    'Frais structure : <span class="tt-neg">− ' + fmt(frais_fixes) + '</span><br>' +
+    '<b>Net disponible : <span class="tt-pos">' + fmt(net_holding) + '</span></b>';
 
   // Barres (plus le coût est bas, mieux c'est → barre inversée)
   const maxBar = Math.max(s1_cout, s2_cout, s3_cout);
@@ -1018,10 +1011,12 @@ function updateProjection() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', simulate);
-document.querySelectorAll('input, select').forEach(el => {
-  el.addEventListener('input', simulate);
-  el.addEventListener('change', simulate);
+document.addEventListener('DOMContentLoaded', function() {
+  simulate();
+  document.querySelectorAll('input, select').forEach(el => {
+    el.addEventListener('input', simulate);
+    el.addEventListener('change', simulate);
+  });
 });
 </script>
 

@@ -445,11 +445,11 @@ function simulate(){
     '<b>Net disponible : <span class="tp">'+fmt(net_h)+'</span></b>';
 
   // Barres
-  var maxB=Math.max(s1,beneB,B3);
-  document.getElementById('bar-s1').style.width=(s1/maxB*100)+'%';
+  var maxB=Math.max(cout_emp,beneB,B3);
+  document.getElementById('bar-s1').style.width=(cout_emp/maxB*100)+'%';
   document.getElementById('bar-s2').style.width=(beneB/maxB*100)+'%';
   document.getElementById('bar-s3').style.width=(B3/maxB*100)+'%';
-  document.getElementById('bp-s1').textContent=fmt(s1);
+  document.getElementById('bp-s1').textContent=fmt(cout_emp);
   document.getElementById('bp-s2').textContent=fmt(beneB);
   document.getElementById('bp-s3').textContent=fmt(B3);
   document.getElementById('bl-s1').textContent=forme==='SAS'?'Salaire SAS':'Salaire SARL';

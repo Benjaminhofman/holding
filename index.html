@@ -517,6 +517,20 @@ function simulate(){
       'IS payé : - '+fmt(calcIS(dt-dtn2*cs_tns_d))+'<br>'+
       '<b>Bénéfice nécessaire : '+fmt(beneB)+'</b>';
   }
+  if(detail_div && (forme==='SAS' || dtn2<=0)){
+    detail_div.innerHTML =
+      'Dividende brut = cible / (1-PFU) = '+fmt(cible/(1-pfu))+'<br>'+
+      'IS payé : - '+fmt(calcIS(beneB))+'<br>'+
+      '<b>Bénéfice nécessaire : '+fmt(beneB)+'</b>';
+  }
+  if(!window.toggleDetail){
+    window.toggleDetail = function(id){
+      var el=document.getElementById(id);
+      el.classList.toggle('open');
+      var tog=el.previousElementSibling;
+      tog.textContent=el.classList.contains('open')?'▼ Masquer':'▶ Voir le calcul détaillé';
+    };
+  }
 }
 
 function updateSlider(){

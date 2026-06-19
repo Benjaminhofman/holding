@@ -334,14 +334,18 @@ function simulate(){
   // Cards
   var mn=Math.min(s1,s2,s3), mx=Math.max(s1,s2,s3);
   function setCard(id,cout,sub,note){
-    document.getElementById('amt-'+id).textContent=fmt(cout);
-    document.getElementById('sub-'+id).textContent=sub;
-    var nel=document.getElementById('note-'+id);
-    if(nel) nel.textContent=note||'';
+    var a=document.getElementById('amt-'+id);
+    var s=document.getElementById('sub-'+id);
+    var n=document.getElementById('note-'+id);
     var c=document.getElementById('card-'+id);
-    c.classList.remove('best','worst');
-    if(cout===mn) c.classList.add('best');
-    else if(cout===mx) c.classList.add('worst');
+    if(a) a.textContent=fmt(cout);
+    if(s) s.textContent=sub;
+    if(n) n.textContent=note||'';
+    if(c){
+      c.classList.remove('best','worst');
+      if(cout===mn) c.classList.add('best');
+      else if(cout===mx) c.classList.add('worst');
+    }
   }
   setCard('s1',s1,forme==='SAS'?'Assimilé-salarié SAS':'Gérant TNS SARL','Économie IS = salaire déductible');
   setCard('s2',s2,sub2,note2);

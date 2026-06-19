@@ -332,7 +332,8 @@ function simulate(){
         'IS exploitation : <span class="tn">− '+fmt(calcIS(B2))+'</span><br>'+
         '<b>Bénéfice nécessaire : '+fmt(B2)+'</b>';
   } else {
-    var seuil=capital*0.10;
+    var cca=g('cca');
+    var seuil=(capital+cca)*0.10;
     var dt=cible/(1-pfu)*1.3;
     for(var i=0;i<30;i++){
       var dp=Math.min(dt,seuil), dtn=Math.max(0,dt-seuil);

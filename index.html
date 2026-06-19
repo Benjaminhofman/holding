@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulateur Holding — Investissement Locatif 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600;700&display=swap');
+
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2333;
+    --border: #2a2f45;
+    --accent: #4f8ef7;
+    --accent2: #7c5cfc;
+    --green: #3ecf8e;
+    --amber: #f5a623;
+    --red: #e05252;
+    --text: #e8eaf0;
+    --muted: #6b7494;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Sora', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px;
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+  }
+  .logo-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(79,142,247,0.1);
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+  header h1 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .year-badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  /* LAYOUT */
+  .container {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    min-height: calc(100vh - 73px);
+  }
+
+  /* SIDEBAR INPUTS */
+  aside {
+    border-right: 1px solid var(--border);
+    padding: 32px 28px;
+    overflow-y: auto;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+  }
+  .input-group label {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-weight: 400;
+  }
+  .input-group .hint {
+    font-size: 10px;
+    color: var(--border);
+    margin-top: 3px;
+    font-family: var(--mono);
+  }
+
+  input[type="number"], select {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 9px 12px;
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.2s;
+    -moz-appearance: textfield;
+  }
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+  input[type="number"]:focus, select:focus { border-color: var(--accent); }
+  select { cursor: pointer; }
+
+  .toggle-group {
+    display: flex;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .toggle-group button {
+    flex: 1;
+    padding: 8px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .toggle-group button.active {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .sep { height: 1px; background: var(--border); margin: 24px 0; }
+
+  /* COLLAPSIBLE */
+  .collapsible-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-bottom: 0;
+    padding: 8px 0;
+  }
+  .collapsible-header.open { margin-bottom: 16px; }
+  .chevron {
+    font-size: 10px;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .collapsible-header.open .chevron { transform: rotate(180deg); }
+  .collapsible-body { display: none; }
+  .collapsible-body.open { display: block; }
+
+  /* MAIN RESULTS */
+  main {
+    padding: 32px 36px;
+    overflow-y: auto;
+  }
+
+  .results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  .results-header h2 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .taux-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  /* SCENARIO CARDS */
+  .scenarios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 20px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .card.best { border-color: var(--green); }
+  .card.worst { border-color: var(--red); }
+
+  .card-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .card.best .card-tag { color: var(--green); }
+  .card.worst .card-tag { color: var(--red); }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .card-subtitle {
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+
+  .card-amount {
+    font-family: var(--mono);
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .card.best .card-amount { color: var(--green); }
+  .card.worst .card-amount { color: var(--red); }
+
+  .card-rate {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* BAR CHART */
+  .bar-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .bar-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .bar-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 80px;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .bar-name { font-size: 12px; color: var(--muted); }
+  .bar-track {
+    height: 8px;
+    background: var(--surface2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+  .bar-fill.s1 { background: linear-gradient(90deg, var(--amber), #f7c948); }
+  .bar-fill.s2 { background: linear-gradient(90deg, var(--red), #e87070); }
+  .bar-fill.s3 { background: linear-gradient(90deg, var(--green), #60e0aa); }
+  .bar-pct {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text);
+    text-align: right;
+  }
+
+  /* BREAKEVEN */
+  .breakeven-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .breakeven-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .breakeven-val {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--accent);
+  }
+  .breakeven-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* WATERFALL */
+  .waterfall-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+  }
+  .waterfall-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .wf-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .wf-row:last-child { border-bottom: none; }
+  .wf-key { color: var(--muted); }
+  .wf-val {
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .wf-val.neg { color: var(--red); }
+  .wf-val.pos { color: var(--green); }
+  .wf-val.neutral { color: var(--text); }
+  .wf-row.total .wf-key { color: var(--text); font-weight: 600; font-size: 13px; }
+  .wf-row.total .wf-val { font-size: 14px; color: var(--green); font-weight: 500; }
+
+  /* DECISION */
+  .decision-bar {
+    margin-top: 24px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    border: 1px solid;
+  }
+  .decision-bar.favorable {
+    background: rgba(62,207,142,0.08);
+    border-color: rgba(62,207,142,0.3);
+    color: var(--green);
+  }
+  .decision-bar.defavorable {
+    background: rgba(224,82,82,0.08);
+    border-color: rgba(224,82,82,0.3);
+    color: var(--red);
+  }
+  .decision-bar span { color: var(--text); }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 10px;
+    color: var(--muted);
+    font-family: var(--mono);
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="logo-tag">Fiscal 2026</span>
+  <h1>Holding vs Investissement Direct — Locatif</h1>
+  <span class="year-badge">Taux 2026 • PFU 31,4 %</span>
+</header>
+
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <aside>
+
+    <div class="section-label">Exploitation</div>
+
+    <div class="input-group">
+      <label>Bénéfice avant IS (€)</label>
+      <input type="number" id="benefice" value="100000" step="5000" min="0">
+      <div class="hint">Résultat courant avant impôt</div>
+    </div>
+
+    <div class="input-group">
+      <label>Forme juridique</label>
+      <div class="toggle-group">
+        <button id="btn-sas" class="active" onclick="setForme('SAS')">SAS / SASU</button>
+        <button id="btn-sarl" onclick="setForme('SARL')">SARL / EURL</button>
+      </div>
+    </div>
+
+    <div class="input-group" id="group-capital" style="display:none">
+      <label>Capital social (€)</label>
+      <input type="number" id="capital" value="10000" step="1000" min="1">
+      <div class="hint">Seuil 10 % = cotisations TNS sur dividendes</div>
+    </div>
+
+    <div class="input-group">
+      <label>Tranche marginale d'imposition (IR)</label>
+      <select id="tmi">
+        <option value="0">0 %</option>
+        <option value="0.11">11 %</option>
+        <option value="0.30" selected>30 %</option>
+        <option value="0.41">41 %</option>
+        <option value="0.45">45 %</option>
+      </select>
+    </div>
+
+    <div class="sep"></div>
+
+    <!-- TAUX AVANCES -->
+    <div class="collapsible-header" onclick="toggleSection('taux')">
+      <span class="section-label" style="margin-bottom:0;border:none">Taux fiscaux</span>
+      <span class="chevron" id="chevron-taux">▼</span>
+    </div>
+    <div class="collapsible-body" id="body-taux">
+
+      <div class="input-group">
+        <label>IS taux réduit (%) — jusqu'à 42 500 €</label>
+        <input type="number" id="is_reduit" value="15" step="1" min="0" max="100">
+      </div>
+      <div class="input-group">
+        <label>IS taux normal (%)</label>
+        <input type="number" id="is_normal" value="25" step="1" min="0" max="100">
+      </div>
+      <div class="input-group">
+        <label>Prélèvements sociaux PFU (%)</label>
+        <input type="number" id="ps_pfu" value="18.6" step="0.1" min="0" max="100">
+        <div class="hint">17,2 % avant 2026 → 18,6 % depuis 01/2026</div>
+      </div>
+      <div class="input-group">
+        <label>IR flat tax (%)</label>
+        <input type="number" id="ir_pfu" value="12.8" step="0.1" min="0" max="100">
+      </div>
+      <div class="input-group">
+        <label>Cotisations sociales salaire (%)</label>
+        <input type="number" id="cs_salaire" value="45" step="1" min="0" max="100">
+        <div class="hint">Employeur + salarié, en % du coût total</div>
+      </div>
+      <div class="input-group">
+        <label>Cotisations TNS sur dividendes (%)</label>
+        <input type="number" id="cs_tns" value="45" step="1" min="0" max="100">
+        <div class="hint">Fraction > 10 % capital social (SARL uniquement)</div>
+      </div>
+      <div class="input-group">
+        <label>Quote-part mère-fille (%)</label>
+        <input type="number" id="qp_mere_fille" value="5" step="1" min="0" max="100">
+        <div class="hint">Part réintégrée à l'IS dans la holding</div>
+      </div>
+
+    </div>
+
+    <div class="sep"></div>
+
+    <!-- COUTS HOLDING -->
+    <div class="collapsible-header" onclick="toggleSection('couts')">
+      <span class="section-label" style="margin-bottom:0;border:none">Coûts Holding + SCI</span>
+      <span class="chevron" id="chevron-couts">▼</span>
+    </div>
+    <div class="collapsible-body" id="body-couts">
+
+      <div class="input-group">
+        <label>Frais création holding (€)</label>
+        <input type="number" id="cout_creation_holding" value="1500" step="100">
+      </div>
+      <div class="input-group">
+        <label>Frais création SCI (€)</label>
+        <input type="number" id="cout_creation_sci" value="2000" step="100">
+      </div>
+      <div class="input-group">
+        <label>Amortissement création (années)</label>
+        <input type="number" id="amort" value="5" step="1" min="1">
+      </div>
+      <div class="input-group">
+        <label>Comptabilité holding (€/an)</label>
+        <input type="number" id="cout_holding_an" value="2500" step="100">
+      </div>
+      <div class="input-group">
+        <label>Comptabilité SCI (€/an)</label>
+        <input type="number" id="cout_sci_an" value="800" step="100">
+      </div>
+
+    </div>
+
+    <div class="sep"></div>
+
+    <button onclick="simulate()" style="
+      width:100%; padding:12px; background: var(--accent);
+      border:none; border-radius:8px; color:#fff;
+      font-family:var(--sans); font-size:14px; font-weight:600;
+      cursor:pointer; transition: opacity 0.2s;
+    " onmouseover="this.style.opacity=0.85" onmouseout="this.style.opacity=1">
+      Calculer →
+    </button>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <div class="results-header">
+      <h2>Résultats comparatifs</h2>
+      <span class="taux-badge" id="recap-benfice">— </span>
+    </div>
+
+    <!-- CARDS -->
+    <div class="scenarios">
+      <div class="card" id="card-s1">
+        <div class="card-tag">Scénario A</div>
+        <div class="card-title">Salaire</div>
+        <div class="card-subtitle" id="sub-s1">Président assimilé-salarié</div>
+        <div class="card-amount" id="amt-s1">—</div>
+        <div class="card-rate" id="rate-s1">taux de rétention : —</div>
+      </div>
+      <div class="card" id="card-s2">
+        <div class="card-tag">Scénario B</div>
+        <div class="card-title">Dividendes directs</div>
+        <div class="card-subtitle" id="sub-s2">Flat tax / cotisations TNS</div>
+        <div class="card-amount" id="amt-s2">—</div>
+        <div class="card-rate" id="rate-s2">taux de rétention : —</div>
+      </div>
+      <div class="card" id="card-s3">
+        <div class="card-tag">Scénario C</div>
+        <div class="card-title">Holding + SCI</div>
+        <div class="card-subtitle">Régime mère-fille · IS</div>
+        <div class="card-amount" id="amt-s3">—</div>
+        <div class="card-rate" id="rate-s3">taux de rétention : —</div>
+      </div>
+    </div>
+
+    <!-- BARRE -->
+    <div class="bar-section">
+      <div class="bar-label">Taux de rétention du capital (cash disponible / bénéfice initial)</div>
+      <div class="bar-row">
+        <div class="bar-name" id="bar-label-s1">Salaire</div>
+        <div class="bar-track"><div class="bar-fill s1" id="bar-s1" style="width:0%"></div></div>
+        <div class="bar-pct" id="barpct-s1">—</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-name" id="bar-label-s2">Dividendes</div>
+        <div class="bar-track"><div class="bar-fill s2" id="bar-s2" style="width:0%"></div></div>
+        <div class="bar-pct" id="barpct-s2">—</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-name">Holding + SCI</div>
+        <div class="bar-track"><div class="bar-fill s3" id="bar-s3" style="width:0%"></div></div>
+        <div class="bar-pct" id="barpct-s3">—</div>
+      </div>
+    </div>
+
+    <!-- BREAKEVEN + GAIN -->
+    <div class="breakeven-section">
+      <div>
+        <div class="breakeven-label">Seuil de rentabilité du montage</div>
+        <div class="breakeven-val" id="seuil-val">—</div>
+        <div class="breakeven-sub" id="seuil-sub">bénéfice annuel minimum pour couvrir les frais</div>
+      </div>
+      <div>
+        <div class="breakeven-label">Gain annuel vs meilleur scénario direct</div>
+        <div class="breakeven-val" id="gain-val">—</div>
+        <div class="breakeven-sub" id="gain-sub">avantage net de la structure holding</div>
+      </div>
+    </div>
+
+    <!-- WATERFALL HOLDING -->
+    <div class="waterfall-section">
+      <div class="waterfall-label">Décomposition Holding + SCI (flux pas à pas)</div>
+      <div class="wf-row">
+        <span class="wf-key">Bénéfice avant IS (exploitation)</span>
+        <span class="wf-val neutral" id="wf-0">—</span>
+      </div>
+      <div class="wf-row">
+        <span class="wf-key">IS exploitation (taux réduit / normal)</span>
+        <span class="wf-val neg" id="wf-1">—</span>
+      </div>
+      <div class="wf-row">
+        <span class="wf-key">Dividende remontant à la holding</span>
+        <span class="wf-val neutral" id="wf-2">—</span>
+      </div>
+      <div class="wf-row">
+        <span class="wf-key">IS holding (quote-part 5 % × taux IS)</span>
+        <span class="wf-val neg" id="wf-3">—</span>
+      </div>
+      <div class="wf-row">
+        <span class="wf-key">Disponible holding avant frais</span>
+        <span class="wf-val neutral" id="wf-4">—</span>
+      </div>
+      <div class="wf-row">
+        <span class="wf-key">Frais annuels holding</span>
+        <span class="wf-val neg" id="wf-5">—</span>
+      </div>
+      <div class="wf-row">
+        <span class="wf-key">Frais annuels SCI</span>
+        <span class="wf-val neg" id="wf-6">—</span>
+      </div>
+      <div class="wf-row">
+        <span class="wf-key">Amortissement frais de création (annuel)</span>
+        <span class="wf-val neg" id="wf-7">—</span>
+      </div>
+      <div class="wf-row total">
+        <span class="wf-key">Cash net disponible pour investir</span>
+        <span class="wf-val pos" id="wf-8">—</span>
+      </div>
+    </div>
+
+    <div id="decision-bar" class="decision-bar favorable" style="display:none"></div>
+
+  </main>
+
+</div>
+
+<footer>Simulateur indicatif — Taux 2026 — Ne constitue pas un conseil fiscal personnalisé</footer>
+
+<script>
+let forme = 'SAS';
+
+function setForme(f) {
+  forme = f;
+  document.getElementById('btn-sas').classList.toggle('active', f === 'SAS');
+  document.getElementById('btn-sarl').classList.toggle('active', f === 'SARL');
+  document.getElementById('group-capital').style.display = f === 'SARL' ? 'block' : 'none';
+  simulate();
+}
+
+function toggleSection(id) {
+  const body = document.getElementById('body-' + id);
+  const header = body.previousElementSibling;
+  const chevron = document.getElementById('chevron-' + id);
+  body.classList.toggle('open');
+  header.classList.toggle('open');
+}
+
+function g(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+function calcIS(resultat) {
+  const seuil = 42500;
+  const tauxR = g('is_reduit') / 100;
+  const tauxN = g('is_normal') / 100;
+  if (resultat <= 0) return 0;
+  if (resultat <= seuil) return resultat * tauxR;
+  return seuil * tauxR + (resultat - seuil) * tauxN;
+}
+
+function fmt(n) {
+  return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
+}
+
+function simulate() {
+  const B = g('benefice');
+  const tmi = g('tmi') / 100 || parseFloat(document.getElementById('tmi').value);
+  const tmi_val = parseFloat(document.getElementById('tmi').value);
+  const ps = g('ps_pfu') / 100;
+  const ir_pfu = g('ir_pfu') / 100;
+  const cs_sal = g('cs_salaire') / 100;
+  const cs_tns = g('cs_tns') / 100;
+  const capital = g('capital');
+  const qp = g('qp_mere_fille') / 100;
+  const cout_h = g('cout_holding_an');
+  const cout_s = g('cout_sci_an');
+  const creation_total = g('cout_creation_holding') + g('cout_creation_sci');
+  const amort_annuel = creation_total / Math.max(g('amort'), 1);
+
+  // Taux IS
+  const tauxN = g('is_normal') / 100;
+  const tauxR = g('is_reduit') / 100;
+
+  // --- SCENARIO A : SALAIRE ---
+  // IS payé sur bénéfice résiduel — ici on verse tout en salaire avant IS
+  // Salaire brut = B / (1 + cs_sal) si cs_sal = part patronale
+  // Convention : cs_sal = % du coût total → net = B * (1 - cs_sal)
+  const sal_net_avant_ir = B * (1 - cs_sal);
+  const sal_ir = sal_net_avant_ir * tmi_val;
+  const s1_net = sal_net_avant_ir - sal_ir;
+
+  // --- SCENARIO B : DIVIDENDES DIRECTS ---
+  const is_expl = calcIS(B);
+  const dividende_brut = B - is_expl;
+
+  let s2_net;
+  if (forme === 'SAS') {
+    // PFU = IR flat tax + PS
+    const pfu_total = ir_pfu + ps;
+    s2_net = dividende_brut * (1 - pfu_total);
+  } else {
+    // SARL : fraction <= 10% capital → PFU, fraction > 10% → cotisations TNS
+    const seuil_tns = capital * 0.10;
+    const div_pfu = Math.min(dividende_brut, seuil_tns);
+    const div_tns = Math.max(0, dividende_brut - seuil_tns);
+    const pfu_total = ir_pfu + ps;
+    s2_net = div_pfu * (1 - pfu_total) + div_tns * (1 - cs_tns) * (1 - pfu_total);
+  }
+
+  // --- SCENARIO C : HOLDING + SCI ---
+  // 1. IS sur exploitation
+  const is_expl_h = calcIS(B);
+  const div_vers_holding = B - is_expl_h;
+
+  // 2. Régime mère-fille : seule quote-part imposable
+  const base_is_holding = div_vers_holding * qp;
+  const is_holding = base_is_holding * tauxN; // taux normal dans la holding
+
+  // 3. Disponible avant frais
+  const dispo_avant_frais = div_vers_holding - is_holding;
+
+  // 4. Déduction frais
+  const s3_net = dispo_avant_frais - cout_h - cout_s - amort_annuel;
+
+  // --- SEUIL DE RENTABILITE ---
+  // Point où Holding > max(S1, S2)
+  // Approximation linéaire : coûts fixes = cout_h + cout_s + amort_annuel
+  // Avantage marginal par € de bénéfice = taux_retention_holding - taux_retention_direct
+  const best_direct = Math.max(s1_net, s2_net);
+  const frais_fixes = cout_h + cout_s + amort_annuel;
+
+  // Taux de rétention holding (hors frais fixes)
+  // Pour B = 1 : is1 = B * tauxR, div_h = B - tauxR, is_h = div_h * qp * tauxN
+  // dispo = div_h - is_h = B*(1-tauxR)*(1 - qp*tauxN)
+  const ret_holding_marginal = (1 - tauxR) * (1 - qp * tauxN);
+  const ret_direct = best_direct / B;
+  const diff_marginal = ret_holding_marginal - ret_direct;
+  const seuil_rentabilite = diff_marginal > 0 ? frais_fixes / diff_marginal : null;
+
+  const gain = s3_net - best_direct;
+
+  // --- AFFICHAGE ---
+  document.getElementById('recap-benfice').textContent = fmt(B) + ' de bénéfice';
+
+  const r1 = s1_net / B;
+  const r2 = s2_net / B;
+  const r3 = s3_net / B;
+
+  // Cards
+  setCard('s1', s1_net, r1, forme === 'SAS' ? 'Président assimilé-salarié SAS' : 'Gérant assimilé-salarié SARL');
+  setCard('s2', s2_net, r2, forme === 'SAS' ? 'Flat tax — PFU 31,4 %' : 'TNS + PFU selon seuil 10 %');
+  setCard('s3', s3_net, r3, 'Régime mère-fille · IS');
+
+  // Best / worst
+  const vals = [s1_net, s2_net, s3_net];
+  const ids = ['s1', 's2', 's3'];
+  const maxV = Math.max(...vals), minV = Math.min(...vals);
+  ids.forEach((id, i) => {
+    const card = document.getElementById('card-' + id);
+    card.classList.remove('best', 'worst');
+    if (vals[i] === maxV) card.classList.add('best');
+    else if (vals[i] === minV) card.classList.add('worst');
+  });
+
+  // Barres
+  const maxBar = Math.max(r1, r2, r3);
+  ['s1','s2','s3'].forEach((id, i) => {
+    const r = [r1,r2,r3][i];
+    document.getElementById('bar-' + id).style.width = (r / maxBar * 100) + '%';
+    document.getElementById('barpct-' + id).textContent = (r * 100).toFixed(1) + '%';
+  });
+  document.getElementById('bar-label-s1').textContent = forme === 'SAS' ? 'Salaire SAS' : 'Salaire SARL';
+  document.getElementById('bar-label-s2').textContent = forme === 'SAS' ? 'Dividendes SAS' : 'Dividendes SARL';
+
+  // Seuil
+  if (seuil_rentabilite !== null && seuil_rentabilite > 0) {
+    document.getElementById('seuil-val').textContent = fmt(seuil_rentabilite);
+    document.getElementById('seuil-sub').textContent = 'À partir de ce bénéfice, le montage est rentable vs extraction directe';
+  } else {
+    document.getElementById('seuil-val').textContent = 'Déjà rentable';
+    document.getElementById('seuil-sub').textContent = 'Le montage est avantageux dès le premier euro de bénéfice';
+  }
+
+  // Gain
+  document.getElementById('gain-val').textContent = gain >= 0 ? '+' + fmt(gain) : fmt(gain);
+  document.getElementById('gain-sub').textContent = 'vs ' + (s1_net > s2_net ? 'scénario salaire' : 'dividendes directs');
+
+  // Waterfall
+  document.getElementById('wf-0').textContent = fmt(B);
+  document.getElementById('wf-1').textContent = '− ' + fmt(is_expl_h);
+  document.getElementById('wf-2').textContent = fmt(div_vers_holding);
+  document.getElementById('wf-3').textContent = '− ' + fmt(is_holding);
+  document.getElementById('wf-4').textContent = fmt(dispo_avant_frais);
+  document.getElementById('wf-5').textContent = '− ' + fmt(cout_h);
+  document.getElementById('wf-6').textContent = '− ' + fmt(cout_s);
+  document.getElementById('wf-7').textContent = '− ' + fmt(amort_annuel);
+  document.getElementById('wf-8').textContent = fmt(s3_net);
+
+  // Decision bar
+  const db = document.getElementById('decision-bar');
+  db.style.display = 'block';
+  if (gain > 0) {
+    db.className = 'decision-bar favorable';
+    db.innerHTML = `Avantage holding : <span>${fmt(gain)} / an</span> de capital supplémentaire disponible pour l'investissement. Le montage se justifie à partir de <span>${seuil_rentabilite ? fmt(seuil_rentabilite) : 'moins que votre bénéfice actuel'}</span> de bénéfice annuel.`;
+  } else {
+    db.className = 'decision-bar defavorable';
+    db.innerHTML = `Les frais de structure absorbent l'avantage fiscal. À ce niveau de bénéfice, l'extraction directe est plus efficiente de <span>${fmt(Math.abs(gain))}</span>. Le seuil de rentabilité du montage est à <span>${seuil_rentabilite ? fmt(seuil_rentabilite) : '—'}</span>.`;
+  }
+}
+
+function setCard(id, val, rate, sub) {
+  document.getElementById('amt-' + id).textContent = fmt(val);
+  document.getElementById('rate-' + id).textContent = 'taux de rétention : ' + (rate * 100).toFixed(1) + '%';
+  document.getElementById('sub-' + id).textContent = sub;
+}
+
+// Init
+simulate();
+
+// Live update
+document.querySelectorAll('input, select').forEach(el => {
+  el.addEventListener('input', simulate);
+  el.addEventListener('change', simulate);
+});
+</script>
+
+</body>
+</html>
